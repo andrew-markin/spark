@@ -1,0 +1,25 @@
+{
+  "editor.bracketPairColorization.enabled": true,
+  "editor.codeActionsOnSave": { "source.fixAll": "explicit" },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.folding": false,
+  "editor.formatOnSave": true,
+  "editor.glyphMargin": false,
+  "editor.insertSpaces": true,
+  "editor.minimap.renderCharacters": false,
+  "editor.minimap.showSlider": "always",
+  "editor.renderWhitespace": "all",
+  "editor.scrollBeyondLastLine": false,
+  "editor.tabSize": 2,
+  "explorer.compactFolders": false,
+  "files.encoding": "utf8",
+  "files.eol": "\n",
+  "files.exclude": {
+    "package-lock.json": true,
+    "node_modules": true,
+    "dist": true
+  },
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true
+}
