@@ -2,7 +2,7 @@
   <app-page title="Spark">
     <div class="col relative-position">
       <q-scroll-area class="absolute-full" :thumb-style="thumbStyle">
-        <q-list separator>
+        <q-list>
           <q-item
             v-for="course of courses"
             :key="course.route"

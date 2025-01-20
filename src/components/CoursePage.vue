@@ -1,5 +1,8 @@
 <template>
   <app-page :title="title">
+    <template #corner>
+      <slot name="corner"></slot>
+    </template>
     <q-card-section class="col relative-position">
       <div class="absolute-full flex flex-center">
         <slot name="question"></slot>

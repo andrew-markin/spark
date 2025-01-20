@@ -2,6 +2,8 @@
   <q-card-section class="bg-primary text-white q-pa-sm row items-center">
     <q-btn flat round icon="img:spark.svg" :to="{ name: 'home' }" />
     <span class="text-subtitle1 text-weight-medium non-selectable">{{ title }}</span>
+    <q-space />
+    <slot name="corner"></slot>
   </q-card-section>
   <slot></slot>
 </template>
