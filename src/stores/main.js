@@ -4,6 +4,7 @@ export const useMainStore = defineStore('main', {
   state: () => {
     const scores = JSON.parse(localStorage.getItem('scores')) || []
     return {
+      locale: 'ru',
       scores
     }
   },

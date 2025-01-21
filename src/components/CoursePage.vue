@@ -1,10 +1,18 @@
 <template>
   <app-page :title="title">
     <template #corner>
-      <slot name="corner"></slot>
+      <q-chip
+        dense
+        non-selectable
+        clickable
+        class="text-subtitle1 bg-white text-primary q-px-sm"
+        @click="drop()"
+      >
+        {{ scoreLabel }}%
+      </q-chip>
     </template>
     <q-card-section class="col relative-position">
-      <div class="absolute-full flex flex-center">
+      <div class="absolute-full flex flex-center q-pa-sm">
         <slot name="question"></slot>
       </div>
     </q-card-section>
@@ -20,7 +28,7 @@
       </card-button>
     </q-card-section>
     <q-card-section class="col relative-position">
-      <div class="absolute-full flex flex-center">
+      <div class="absolute-full flex flex-center q-pa-sm">
         <slot v-if="revealed" name="answer"></slot>
         <div v-else class="text-h4 text-primary text-center">???</div>
       </div>
@@ -41,10 +49,14 @@ export default defineComponent({
   },
   props: {
     title: { type: String, default: undefined },
+    score: { type: Number, default: 0 },
     modelValue: { type: Boolean, default: false }
   },
-  emits: ['update:modelValue', 'grade'],
+  emits: ['update:modelValue', 'grade', 'drop'],
   computed: {
+    scoreLabel() {
+      return Number(this.score || 0).toFixed(2)
+    },
     revealed: {
       get() {
         return this.modelValue
@@ -60,6 +72,9 @@ export default defineComponent({
     },
     grade(success) {
       this.$emit('grade', success)
+    },
+    drop() {
+      this.$emit('drop')
     }
   }
 })
