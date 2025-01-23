@@ -1,7 +1,15 @@
 <template>
-  <q-card-section class="bg-primary text-white q-pa-sm row items-center">
-    <q-btn flat round icon="img:spark.svg" :to="{ name: 'home' }" />
-    <span class="text-subtitle1 text-weight-medium non-selectable">{{ title }}</span>
+  <q-card-section class="bg-primary text-white q-pa-sm q-pr-md row items-center">
+    <q-btn
+      flat
+      dense
+      round
+      size="20px"
+      class="q-mr-sm"
+      icon="img:spark.svg"
+      :to="{ name: 'home' }"
+    />
+    <span class="text-h6 text-weight-medium non-selectable">{{ title }}</span>
     <q-space />
     <slot name="corner"></slot>
   </q-card-section>
