@@ -3,9 +3,10 @@
     v-ripple
     flat
     class="non-selectable cursor-pointer q-hoverable bg-primary text-white q-pa-none"
+    @click="to && $router.push(to)"
   >
     <span class="q-focus-helper"></span>
-    <q-card-section class="text-center q-pa-sm">
+    <q-card-section class="q-pa-sm">
       <slot></slot>
     </q-card-section>
   </q-card>
@@ -16,7 +17,7 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   props: {
-    dense: { type: Boolean, default: false }
+    to: { type: Object, default: undefined }
   }
 })
 </script>

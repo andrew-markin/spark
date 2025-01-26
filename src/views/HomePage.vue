@@ -1,50 +1,31 @@
 <template>
-  <app-page title="Spark">
-    <div class="col relative-position">
-      <q-scroll-area class="absolute-full" :thumb-style="thumbStyle">
-        <q-list>
-          <q-item
-            v-for="course of courses"
-            :key="course.route"
-            v-ripple
-            clickable
-            :to="{ name: course.route }"
-          >
-            <q-item-section class="text-subtitle1 q-py-md">
-              {{ course.title }}
-            </q-item-section>
-          </q-item>
-        </q-list>
-      </q-scroll-area>
-    </div>
-  </app-page>
+  <scrollable-page title="Spark">
+    <course-button v-for="course of courses" :key="course.name" :course="course" />
+    <menu-button :to="{ name: 'settings' }" class="q-mt-xl">Settings</menu-button>
+    <menu-button :to="{ name: 'about' }">About</menu-button>
+  </scrollable-page>
 </template>
 
 <script>
-import { colors } from 'quasar'
 import { defineComponent } from 'vue'
 
-import AppPage from '@/components/AppPage.vue'
+import CourseButton from '@/components/CourseButton.vue'
+import MenuButton from '@/components/MenuButton.vue'
+import ScrollablePage from '@/components/ScrollablePage.vue'
 
 export default defineComponent({
   components: {
-    AppPage
+    CourseButton,
+    MenuButton,
+    ScrollablePage
   },
   computed: {
-    thumbStyle() {
-      return {
-        borderRadius: '0px',
-        backgroundColor: colors.getPaletteColor('primary'),
-        width: '5px',
-        opacity: '0.75'
-      }
-    },
     courses() {
       return [
-        { title: 'Country - Capital', route: 'country-capital' },
-        { title: 'Capital - Country', route: 'capital-country' },
-        { title: 'Flag - Country', route: 'flag-country' },
-        { title: 'Country - Flag', route: 'country-flag' }
+        { title: 'Country - Capital', name: 'country-capital' },
+        { title: 'Capital - Country', name: 'capital-country' },
+        { title: 'Flag - Country', name: 'flag-country' },
+        { title: 'Country - Flag', name: 'country-flag' }
       ]
     }
   }

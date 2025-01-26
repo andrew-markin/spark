@@ -1,29 +1,23 @@
 <template>
   <app-page :title="title">
     <template #corner>
-      <q-chip
-        dense
-        non-selectable
-        clickable
-        class="text-subtitle1 bg-white text-primary q-px-sm"
-        @click="drop()"
-      >
-        {{ scoreLabel }}%
-      </q-chip>
+      <div class="text-h6 non-selectable cursor-pointer" @click="drop()">{{ scoreLabel }}%</div>
     </template>
     <q-card-section class="col relative-position">
       <div class="absolute-full flex flex-center q-pa-sm">
         <slot name="question"></slot>
       </div>
     </q-card-section>
-    <q-card-section class="text-h6 row no-wrap q-pa-none bg-pink">
+    <q-card-section class="text-h6 row no-wrap q-pa-none text-center">
       <template v-if="revealed">
-        <card-button square class="col-6 bg-red q-pa-md" @click="grade(false)">
+        <card-button square class="col-6 bg-negative q-pa-md" @click="grade(false)">
           I didn't know
         </card-button>
-        <card-button square class="col-6 bg-green q-pa-md" @click="grade(true)">I knew</card-button>
+        <card-button square class="col-6 bg-positive q-pa-md" @click="grade(true)"
+          >I knew</card-button
+        >
       </template>
-      <card-button v-else square class="col-12 bg-blue q-pa-md" @click="reveal()">
+      <card-button v-else square class="col-12 bg-primary q-pa-md" @click="reveal()">
         Reveal the Answer
       </card-button>
     </q-card-section>

@@ -9,6 +9,16 @@ const router = createRouter({
       component: () => import('@/views/HomePage.vue')
     },
     {
+      path: '/settings',
+      name: 'settings',
+      component: () => import('@/views/SettingsPage.vue')
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: () => import('@/views/AboutPage.vue')
+    },
+    {
       path: '/country-capital',
       name: 'country-capital',
       component: () => import('@/views/courses/CountryCapital.vue')
