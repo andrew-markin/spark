@@ -1,5 +1,5 @@
 <template>
-  <scrollable-page title="About">
+  <scrollable-page :title="$t('ABOUT')">
     <div class="text-h6 q-pa-md q-my-md">
       <div class="q-mb-md">...</div>
     </div>

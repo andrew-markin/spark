@@ -4,17 +4,7 @@ export const useMainStore = defineStore('main', {
   state: () => {
     const scores = JSON.parse(localStorage.getItem('scores')) || []
     return {
-      locale: 'ru',
-      locales: [
-        { label: 'English', value: 'en' },
-        { label: 'Русский', value: 'ru' }
-      ],
       theme: undefined,
-      themes: [
-        { label: 'System', value: undefined },
-        { label: 'Light', value: 'light' },
-        { label: 'Dark', value: 'dark' }
-      ],
       scores
     }
   },

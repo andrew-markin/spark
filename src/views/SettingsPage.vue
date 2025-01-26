@@ -1,21 +1,22 @@
 <template>
-  <scrollable-page title="Settings">
+  <scrollable-page :title="$t('SETTINGS')">
     <div class="text-h6 q-pa-md q-my-md">
-      <div class="q-mb-md">Language:</div>
-      <q-option-group v-model="locale" size="xl" :options="locales" type="radio" />
+      <div class="q-mb-md">{{ $t('LANGUAGE') }}:</div>
+      <q-option-group v-model="$i18n.locale" size="xl" :options="locales" type="radio" />
     </div>
     <div class="text-h6 q-pa-md q-my-md">
-      <div class="q-mb-md">Theme:</div>
+      <div class="q-mb-md">{{ $t('THEME') }}:</div>
       <q-option-group v-model="theme" size="xl" :options="themes" type="radio" />
     </div>
   </scrollable-page>
 </template>
 
 <script>
-import { mapState, mapWritableState } from 'pinia'
+import { mapWritableState } from 'pinia'
 import { defineComponent } from 'vue'
 
 import ScrollablePage from '@/components/ScrollablePage.vue'
+import { preferLocale } from '@/i18n'
 import { useMainStore } from '@/stores/main'
 
 export default defineComponent({
@@ -23,8 +24,25 @@ export default defineComponent({
     ScrollablePage
   },
   computed: {
-    ...mapState(useMainStore, ['locales', 'themes']),
-    ...mapWritableState(useMainStore, ['locale', 'theme'])
+    ...mapWritableState(useMainStore, ['theme']),
+    locales() {
+      return this.$i18n.availableLocales.map((locale) => ({
+        label: this.$t('_LOCALE_TITLE', 1, { locale }),
+        value: locale
+      }))
+    },
+    themes() {
+      return [
+        { label: this.$t('THEME_SYSTEM'), value: undefined },
+        { label: this.$t('THEME_LIGHT'), value: 'light' },
+        { label: this.$t('THEME_DARK'), value: 'dark' }
+      ]
+    }
+  },
+  watch: {
+    '$i18n.locale': function (value) {
+      preferLocale(value)
+    }
   }
 })
 </script>

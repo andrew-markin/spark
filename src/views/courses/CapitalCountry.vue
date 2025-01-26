@@ -1,31 +1,26 @@
 <template>
-  <country-course-page course="capital-country" title="Capital - Country">
+  <country-course-page course="capital-country" :title="$t('COURSE_CAPITAL_COUNTRY')">
     <template #question="{ option }">
       <div class="text-h4 text-primary text-center">
-        {{ option.capital[locale] }}
+        {{ option.capital[$i18n.locale] }}
       </div>
     </template>
     <template #answer="{ option }">
       <div class="text-h4 text-primary text-center">
-        {{ option.name[locale] }}
+        {{ option.name[$i18n.locale] }}
       </div>
     </template>
   </country-course-page>
 </template>
 
 <script>
-import { mapState } from 'pinia'
 import { defineComponent } from 'vue'
 
 import CountryCoursePage from '@/components/CountryCoursePage.vue'
-import { useMainStore } from '@/stores/main'
 
 export default defineComponent({
   components: {
     CountryCoursePage
-  },
-  computed: {
-    ...mapState(useMainStore, ['locale'])
   }
 })
 </script>

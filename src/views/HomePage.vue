@@ -1,8 +1,8 @@
 <template>
   <scrollable-page title="Spark">
     <course-button v-for="course of courses" :key="course.name" :course="course" />
-    <menu-button :to="{ name: 'settings' }" class="q-mt-xl">Settings</menu-button>
-    <menu-button :to="{ name: 'about' }">About</menu-button>
+    <menu-button :to="{ name: 'settings' }" class="q-mt-xl">{{ $t('SETTINGS') }}</menu-button>
+    <menu-button :to="{ name: 'about' }">{{ $t('ABOUT') }}</menu-button>
   </scrollable-page>
 </template>
 
@@ -22,10 +22,10 @@ export default defineComponent({
   computed: {
     courses() {
       return [
-        { title: 'Country - Capital', name: 'country-capital' },
-        { title: 'Capital - Country', name: 'capital-country' },
-        { title: 'Flag - Country', name: 'flag-country' },
-        { title: 'Country - Flag', name: 'country-flag' }
+        { title: this.$t('COURSE_COUNTRY_CAPITAL'), name: 'country-capital' },
+        { title: this.$t('COURSE_CAPITAL_COUNTRY'), name: 'capital-country' },
+        { title: this.$t('COURSE_FLAG_COUNTRY'), name: 'flag-country' },
+        { title: this.$t('COURSE_COUNTRY_FLAG'), name: 'country-flag' }
       ]
     }
   }

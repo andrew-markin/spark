@@ -1,8 +1,8 @@
 <template>
-  <country-course-page course="country-flag" title="Country - Flag">
+  <country-course-page course="country-flag" :title="$t('COURSE_COUNTRY_FLAG')">
     <template #question="{ option }">
       <div class="text-h4 text-primary text-center">
-        {{ option.name[locale] }}
+        {{ option.name[$i18n.locale] }}
       </div>
     </template>
     <template #answer="{ option }">
@@ -12,18 +12,13 @@
 </template>
 
 <script>
-import { mapState } from 'pinia'
 import { defineComponent } from 'vue'
 
 import CountryCoursePage from '@/components/CountryCoursePage.vue'
-import { useMainStore } from '@/stores/main'
 
 export default defineComponent({
   components: {
     CountryCoursePage
-  },
-  computed: {
-    ...mapState(useMainStore, ['locale'])
   }
 })
 </script>
