@@ -20,5 +20,9 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  define: {
+    // eslint-disable-next-line no-undef
+    'import.meta.env.APP_VERSION': JSON.stringify(process.env.npm_package_version)
   }
 })

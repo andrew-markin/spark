@@ -1,5 +1,8 @@
 <template>
   <scrollable-page :title="$t('_APP_TITLE')">
+    <template #corner>
+      <div class="text-h6 non-selectable muted">{{ version }}</div>
+    </template>
     <course-button v-for="course of courses" :key="course.name" :course="course" />
     <menu-button :to="{ name: 'settings' }" class="q-mt-xl">{{ $t('SETTINGS') }}</menu-button>
     <menu-button :to="{ name: 'about' }">{{ $t('ABOUT') }}</menu-button>
@@ -20,6 +23,9 @@ export default defineComponent({
     ScrollablePage
   },
   computed: {
+    version() {
+      return import.meta.env.APP_VERSION
+    },
     courses() {
       return [
         { title: this.$t('COURSE_COUNTRY_CAPITAL'), name: 'country-capital' },
@@ -31,3 +37,9 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped>
+.muted {
+  opacity: 0.5;
+}
+</style>
