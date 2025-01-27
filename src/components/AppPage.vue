@@ -1,5 +1,5 @@
 <template>
-  <q-card-section class="app-header bg-primary text-white q-pa-sm q-pr-md row items-center">
+  <q-card-section class="bg-primary text-white q-pa-sm q-pr-md row items-center">
     <q-btn
       flat
       dense
@@ -25,9 +25,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style>
-.app-header {
-  border-bottom: 2px solid white;
-}
-</style>
