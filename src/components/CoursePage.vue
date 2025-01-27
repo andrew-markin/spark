@@ -10,14 +10,14 @@
     </q-card-section>
     <q-card-section class="text-h6 row no-wrap q-pa-none text-center">
       <template v-if="revealed">
-        <card-button square class="col-6 bg-negative q-pa-md" @click="grade(false)">
+        <card-button square class="col-6 bg-negative text-uppercase q-pa-md" @click="grade(false)">
           {{ $t('ANSWER_GRADE_SUCCESS') }}
         </card-button>
-        <card-button square class="col-6 bg-positive q-pa-md" @click="grade(true)">
+        <card-button square class="col-6 bg-positive text-uppercase q-pa-md" @click="grade(true)">
           {{ $t('ANSWER_GRADE_FAIL') }}
         </card-button>
       </template>
-      <card-button v-else square class="col-12 bg-primary q-pa-md" @click="reveal()">
+      <card-button v-else square class="col-12 bg-primary text-uppercase q-pa-md" @click="reveal()">
         {{ $t('ANSWER_REVEAL') }}
       </card-button>
     </q-card-section>
