@@ -1,5 +1,5 @@
 <template>
-  <scrollable-page title="Spark">
+  <scrollable-page :title="$t('_APP_TITLE')">
     <course-button v-for="course of courses" :key="course.name" :course="course" />
     <menu-button :to="{ name: 'settings' }" class="q-mt-xl">{{ $t('SETTINGS') }}</menu-button>
     <menu-button :to="{ name: 'about' }">{{ $t('ABOUT') }}</menu-button>
