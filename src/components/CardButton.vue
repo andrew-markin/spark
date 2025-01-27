@@ -2,7 +2,7 @@
   <q-card
     v-ripple
     flat
-    class="non-selectable cursor-pointer q-hoverable bg-primary text-white q-pa-none"
+    class="non-selectable cursor-pointer q-hoverable bg-secondary text-white q-pa-none"
     @click="to && $router.push(to)"
   >
     <span class="q-focus-helper"></span>
