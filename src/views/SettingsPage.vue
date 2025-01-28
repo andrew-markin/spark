@@ -6,7 +6,7 @@
     </div>
     <div class="text-h6 q-pa-md q-my-md">
       <div class="q-mb-md">{{ $t('THEME') }}:</div>
-      <q-option-group v-model="theme" size="xl" :options="themes" type="radio" />
+      <q-option-group v-model="dark" size="xl" :options="themes" type="radio" />
     </div>
   </scrollable-page>
 </template>
@@ -18,6 +18,7 @@ import { defineComponent } from 'vue'
 import ScrollablePage from '@/components/ScrollablePage.vue'
 import { preferLocale } from '@/i18n'
 import { useMainStore } from '@/stores/main'
+import { setPreferredDarkMode } from '@/utils/theme'
 
 export default defineComponent({
   components: {
@@ -40,11 +41,20 @@ export default defineComponent({
         value: locale
       }))
     },
+    dark: {
+      get() {
+        return this.$q.dark.mode
+      },
+      set(value) {
+        setPreferredDarkMode(value)
+        this.$q.dark.set(value)
+      }
+    },
     themes() {
       return [
-        { label: this.$t('THEME_SYSTEM'), value: undefined },
-        { label: this.$t('THEME_LIGHT'), value: 'light' },
-        { label: this.$t('THEME_DARK'), value: 'dark' }
+        { label: this.$t('THEME_SYSTEM'), value: 'auto' },
+        { label: this.$t('THEME_LIGHT'), value: false },
+        { label: this.$t('THEME_DARK'), value: true }
       ]
     }
   }

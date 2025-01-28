@@ -1,6 +1,6 @@
 <template>
   <div class="container column no-wrap" :class="{ 'q-pa-sm': !mobileScreen }">
-    <q-card class="col column no-wrap" :flat="mobileScreen" :square="mobileScreen">
+    <q-card class="col column no-wrap shadow-5" :flat="mobileScreen" :square="mobileScreen">
       <router-view />
     </q-card>
   </div>
@@ -24,7 +24,10 @@ export default defineComponent({
 
 <style lang="scss">
 body {
-  background-color: $grey-3;
+  background-color: #e0e0e0;
+}
+body.body--dark {
+  background: #18191d;
 }
 </style>
 

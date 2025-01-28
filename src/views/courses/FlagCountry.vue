@@ -4,7 +4,7 @@
       <country-flag-image :code="option.code" />
     </template>
     <template #answer="{ option }">
-      <div class="text-h4 text-primary text-center">
+      <div class="text-h4 text-secondary text-center">
         {{ option.name[$i18n.locale] }}
       </div>
     </template>
