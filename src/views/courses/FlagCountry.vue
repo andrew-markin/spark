@@ -1,7 +1,7 @@
 <template>
   <country-course-page course="flag-country" :title="$t('COURSE_FLAG_COUNTRY')">
     <template #question="{ option }">
-      <img :src="`/flags/${option.code}.svg`" class="flag" />
+      <country-flag-image :code="option.code" />
     </template>
     <template #answer="{ option }">
       <div class="text-h4 text-primary text-center">
@@ -15,22 +15,12 @@
 import { defineComponent } from 'vue'
 
 import CountryCoursePage from '@/components/CountryCoursePage.vue'
+import CountryFlagImage from '@/components/CountryFlagImage.vue'
 
 export default defineComponent({
   components: {
-    CountryCoursePage
+    CountryCoursePage,
+    CountryFlagImage
   }
 })
 </script>
-
-<style scoped lang="scss">
-.flag {
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  border-radius: 4px;
-  border: 3px solid $grey-8;
-  padding: 2px;
-}
-</style>
