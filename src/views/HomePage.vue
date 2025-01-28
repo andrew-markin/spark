@@ -1,7 +1,7 @@
 <template>
   <scrollable-page :title="$t('_APP_TITLE')">
     <template #corner>
-      <div class="text-h6 non-selectable muted">{{ version }}</div>
+      <div class="text-h6 non-selectable muted">{{ $t('APP_VERSION', { number: version }) }}</div>
     </template>
     <course-button v-for="course of courses" :key="course.name" :course="course" />
     <menu-button :to="{ name: 'settings' }" class="q-mt-xl">{{ $t('SETTINGS') }}</menu-button>
@@ -40,6 +40,6 @@ export default defineComponent({
 
 <style scoped>
 .muted {
-  opacity: 0.5;
+  opacity: 0.25;
 }
 </style>

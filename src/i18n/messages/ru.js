@@ -5,6 +5,7 @@ export default {
   ANSWER_GRADE_FAIL: 'Я знал',
   ANSWER_GRADE_SUCCESS: 'Я не знал',
   ANSWER_REVEAL: 'Показать ответ',
+  APP_VERSION: 'Версия {number}',
   COURSE_CAPITAL_COUNTRY: 'Столица ➜ Страна',
   COURSE_COUNTRY_CAPITAL: 'Страна ➜ Столица',
   COURSE_COUNTRY_FLAG: 'Страна ➜ Флаг',
