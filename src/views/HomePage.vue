@@ -4,8 +4,12 @@
       <div class="text-h6 non-selectable muted">{{ $t('APP_VERSION', { number: version }) }}</div>
     </template>
     <course-button v-for="course of courses" :key="course.name" :course="course" />
-    <menu-button :to="{ name: 'settings' }" class="q-mt-xl">{{ $t('SETTINGS') }}</menu-button>
-    <menu-button :to="{ name: 'about' }">{{ $t('ABOUT') }}</menu-button>
+    <menu-button icon="fa-solid fa-screwdriver-wrench" :to="{ name: 'settings' }" class="q-mt-xl">
+      {{ $t('SETTINGS') }}
+    </menu-button>
+    <menu-button icon="fa-solid fa-lightbulb" :to="{ name: 'about' }">
+      {{ $t('ABOUT') }}
+    </menu-button>
   </scrollable-page>
 </template>
 
@@ -15,6 +19,7 @@ import { defineComponent } from 'vue'
 import CourseButton from '@/components/CourseButton.vue'
 import MenuButton from '@/components/MenuButton.vue'
 import ScrollablePage from '@/components/ScrollablePage.vue'
+import { version } from '@/consts'
 
 export default defineComponent({
   components: {
@@ -22,10 +27,10 @@ export default defineComponent({
     MenuButton,
     ScrollablePage
   },
+  data: () => ({
+    version
+  }),
   computed: {
-    version() {
-      return import.meta.env.APP_VERSION
-    },
     courses() {
       return [
         { title: this.$t('COURSE_COUNTRY_CAPITAL'), name: 'country-capital' },
