@@ -8,6 +8,7 @@
       class="q-mr-sm"
       icon="img:spark.svg"
       :to="{ name: 'home' }"
+      replace
     />
     <span class="text-h6 text-weight-medium non-selectable">{{ title }}</span>
     <q-space />

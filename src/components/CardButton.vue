@@ -25,7 +25,7 @@ export default defineComponent({
   },
   methods: {
     route() {
-      if (this.to) return this.$router.push(this.to)
+      if (this.to) return this.$router.replace(this.to)
       if (this.href) return openURL(this.href)
     }
   }
