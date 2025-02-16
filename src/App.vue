@@ -33,11 +33,12 @@ body.body--dark {
 
 <style scoped lang="scss">
 .container {
-  margin: 0;
-  margin-left: auto;
-  margin-right: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
-  min-height: 100vh;
 }
 
 @media (min-width: 550px) {
