@@ -105,4 +105,4 @@ result.forEach((country, index) => {
 // Write dataset
 
 const datasetPath = path.join(__dirname, 'src/dataset.json')
-fs.writeFileSync(datasetPath, JSON.stringify(result, null, 2))
+fs.writeFileSync(datasetPath, JSON.stringify(result, null, 2) + '\n')
