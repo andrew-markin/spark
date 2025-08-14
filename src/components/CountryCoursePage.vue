@@ -14,24 +14,17 @@ import { mapActions, mapState } from 'pinia'
 import { defineComponent } from 'vue'
 
 import CoursePage from '@/components/CoursePage.vue'
-import { countries } from '@/dataset'
+import countries from '@/dataset.json'
 import { useMainStore } from '@/stores/main'
 import { selectRandomly } from '@/utils/helpers'
 
 export default defineComponent({
-  components: {
-    CoursePage
-  },
+  components: { CoursePage },
   props: {
     course: { type: String, default: undefined },
     title: { type: String, default: undefined }
   },
-  data: () => ({
-    options: [],
-    option: undefined,
-    iteration: 0,
-    revealed: false
-  }),
+  data: () => ({ options: [], option: undefined, iteration: 0, revealed: false }),
   computed: {
     ...mapState(useMainStore, ['getScore']),
     score() {
@@ -47,14 +40,7 @@ export default defineComponent({
     this.iteration = iteration
     const variablesMap = new Map(variables)
     this.options = countries.map((country) => {
-      return {
-        ...country,
-        ...{
-          asked: undefined,
-          confirms: 0,
-          ...variablesMap.get(country.code)
-        }
-      }
+      return { ...country, ...{ asked: undefined, confirms: 0, ...variablesMap.get(country.code) } }
     })
     this.save()
     this.reset()
