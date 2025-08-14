@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
-    "deploy": "sh deploy.sh"
+    "deploy": "sh deploy.sh",
+    "dataset": "node -r dotenv/config dataset.js"
   },
   "dependencies": {
     "@quasar/extras": "^1.17.0",
@@ -27,10 +28,12 @@
     "@quasar/vite-plugin": "^1.10.0",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/eslint-config-prettier": "^10.2.0",
+    "dotenv": "^17.2.1",
     "eslint": "^9.33.0",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-vue": "^10.4.0",
+    "flag-icons": "^7.5.0",
     "prettier": "^3.6.2",
     "sass-embedded": "^1.90.0",
     "vite": "^7.1.2",

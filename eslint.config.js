@@ -6,21 +6,16 @@ import pluginSimpleImportSort from 'eslint-plugin-simple-import-sort'
 import pluginVue from 'eslint-plugin-vue'
 
 export default [
-  {
-    name: 'app/files-to-lint',
-    files: ['**/*.{js,mjs,jsx,vue}'],
-  },
-  {
-    name: 'app/files-to-ignore',
-    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'],
-  },
+  { name: 'app/files-to-lint', files: ['**/*.{js,mjs,jsx,vue}'] },
+  { name: 'app/files-to-ignore', ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'] },
   js.configs.recommended,
   ...pluginVue.configs['flat/recommended'],
   skipFormatting,
+  { env: { node: true } },
   {
     plugins: {
       import: fixupPluginRules(pluginImport),
-      'simple-import-sort': pluginSimpleImportSort,
+      'simple-import-sort': pluginSimpleImportSort
     },
     rules: {
       'simple-import-sort/imports': 'error',
@@ -28,7 +23,7 @@ export default [
       'import/first': 'error',
       'import/newline-after-import': 'error',
       'import/no-duplicates': 'error',
-      '@typescript-eslint/no-explicit-any': 'off',
-    },
-  },
+      '@typescript-eslint/no-explicit-any': 'off'
+    }
+  }
 ]
