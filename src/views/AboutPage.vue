@@ -30,14 +30,7 @@ import ScrollablePage from '@/components/ScrollablePage.vue'
 import { github, linkedin, version } from '@/consts'
 
 export default defineComponent({
-  components: {
-    MenuButton,
-    ScrollablePage
-  },
-  data: () => ({
-    version,
-    github,
-    linkedin
-  })
+  components: { MenuButton, ScrollablePage },
+  data: () => ({ version, github, linkedin })
 })
 </script>

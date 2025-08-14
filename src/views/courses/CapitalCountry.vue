@@ -18,9 +18,5 @@ import { defineComponent } from 'vue'
 
 import CountryCoursePage from '@/components/CountryCoursePage.vue'
 
-export default defineComponent({
-  components: {
-    CountryCoursePage
-  }
-})
+export default defineComponent({ components: { CountryCoursePage } })
 </script>

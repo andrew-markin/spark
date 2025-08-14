@@ -20,9 +20,5 @@
 <script>
 import { defineComponent } from 'vue'
 
-export default defineComponent({
-  props: {
-    title: { type: String, default: undefined }
-  }
-})
+export default defineComponent({ props: { title: { type: String, default: undefined } } })
 </script>

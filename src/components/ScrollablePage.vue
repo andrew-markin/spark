@@ -17,10 +17,5 @@ import { defineComponent } from 'vue'
 import AppPage from '@/components/AppPage.vue'
 import ScrollArea from '@/components/ScrollArea.vue'
 
-export default defineComponent({
-  components: {
-    AppPage,
-    ScrollArea
-  }
-})
+export default defineComponent({ components: { AppPage, ScrollArea } })
 </script>

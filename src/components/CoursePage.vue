@@ -37,10 +37,7 @@ import AppPage from './AppPage.vue'
 import CardButton from './CardButton.vue'
 
 export default defineComponent({
-  components: {
-    AppPage,
-    CardButton
-  },
+  components: { AppPage, CardButton },
   props: {
     title: { type: String, default: undefined },
     score: { type: Number, default: 0 },

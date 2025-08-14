@@ -3,21 +3,9 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: () => import('@/views/HomePage.vue')
-    },
-    {
-      path: '/settings',
-      name: 'settings',
-      component: () => import('@/views/SettingsPage.vue')
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: () => import('@/views/AboutPage.vue')
-    },
+    { path: '/', name: 'home', component: () => import('@/views/HomePage.vue') },
+    { path: '/settings', name: 'settings', component: () => import('@/views/SettingsPage.vue') },
+    { path: '/about', name: 'about', component: () => import('@/views/AboutPage.vue') },
     {
       path: '/country-capital',
       name: 'country-capital',
@@ -38,10 +26,7 @@ const router = createRouter({
       name: 'country-flag',
       component: () => import('@/views/courses/CountryFlag.vue')
     },
-    {
-      path: '/:pathMatch(.*)*',
-      redirect: { name: 'home' }
-    }
+    { path: '/:pathMatch(.*)*', redirect: { name: 'home' } }
   ]
 })
 

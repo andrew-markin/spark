@@ -6,9 +6,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  props: {
-    code: { type: String, default: undefined }
-  },
+  props: { code: { type: String, default: undefined } },
   computed: {
     valid() {
       return this.code && /^([a-z]{2})$/.test(this.code)

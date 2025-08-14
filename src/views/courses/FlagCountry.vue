@@ -17,10 +17,5 @@ import { defineComponent } from 'vue'
 import CountryCoursePage from '@/components/CountryCoursePage.vue'
 import CountryFlagImage from '@/components/CountryFlagImage.vue'
 
-export default defineComponent({
-  components: {
-    CountryCoursePage,
-    CountryFlagImage
-  }
-})
+export default defineComponent({ components: { CountryCoursePage, CountryFlagImage } })
 </script>

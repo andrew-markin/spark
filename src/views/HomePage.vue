@@ -22,14 +22,8 @@ import ScrollablePage from '@/components/ScrollablePage.vue'
 import { version } from '@/consts'
 
 export default defineComponent({
-  components: {
-    CourseButton,
-    MenuButton,
-    ScrollablePage
-  },
-  data: () => ({
-    version
-  }),
+  components: { CourseButton, MenuButton, ScrollablePage },
+  data: () => ({ version }),
   computed: {
     courses() {
       return [

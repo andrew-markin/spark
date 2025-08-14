@@ -21,9 +21,7 @@ import { useMainStore } from '@/stores/main'
 import { setPreferredDarkMode } from '@/utils/theme'
 
 export default defineComponent({
-  components: {
-    ScrollablePage
-  },
+  components: { ScrollablePage },
   computed: {
     ...mapWritableState(useMainStore, ['theme']),
     locale: {

@@ -3,10 +3,7 @@ import { defineStore } from 'pinia'
 export const useMainStore = defineStore('main', {
   state: () => {
     const scores = JSON.parse(localStorage.getItem('scores')) || []
-    return {
-      theme: undefined,
-      scores
-    }
+    return { theme: undefined, scores }
   },
   getters: {
     getScore: (state) => (course, fractionDigits) => {

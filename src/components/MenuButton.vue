@@ -7,9 +7,5 @@ import { defineComponent } from 'vue'
 
 import CardButton from './CardButton.vue'
 
-export default defineComponent({
-  components: {
-    CardButton
-  }
-})
+export default defineComponent({ components: { CardButton } })
 </script>

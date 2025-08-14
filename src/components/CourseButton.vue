@@ -17,12 +17,8 @@ import { useMainStore } from '@/stores/main'
 import MenuButton from './MenuButton.vue'
 
 export default defineComponent({
-  components: {
-    MenuButton
-  },
-  props: {
-    course: { type: Object, default: undefined }
-  },
+  components: { MenuButton },
+  props: { course: { type: Object, default: undefined } },
   computed: {
     ...mapState(useMainStore, ['getScore']),
     score() {
