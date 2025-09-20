@@ -1,3 +1,4 @@
+import { execSync } from 'child_process'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -53,10 +54,12 @@ const countryRUPatches = new Map([
 ])
 
 const englishRegExp = /[a-zA-Z]/g
+const flagComponentsDirectory = path.join(__dirname, 'src/components/flags')
 
-const flagsTargetDirectory = path.join(__dirname, 'public/flags')
-fs.rmSync(flagsTargetDirectory, { recursive: true, force: true })
-fs.mkdirSync(flagsTargetDirectory, { recursive: true })
+fs.rmSync(flagComponentsDirectory, { recursive: true, force: true })
+fs.mkdirSync(flagComponentsDirectory, { recursive: true })
+
+const existingCountryCodes = []
 
 for (const countryCode of countryCodes) {
   let countryEN = countriesENMap.get(countryCode)
@@ -69,8 +72,11 @@ for (const countryCode of countryCodes) {
   const flagSourcePath = path.join(__dirname, `node_modules/flag-icons/flags/4x3/${code}.svg`)
   if (!fs.existsSync(flagSourcePath)) continue
 
-  const flagTargetPath = path.join(flagsTargetDirectory, `${code}.svg`)
-  fs.copyFileSync(flagSourcePath, flagTargetPath)
+  const flagSvg = String(fs.readFileSync(flagSourcePath))
+  existingCountryCodes.push(code.toUpperCase())
+
+  const flagComponentPath = path.join(flagComponentsDirectory, `${code.toUpperCase()}.vue`)
+  fs.writeFileSync(flagComponentPath, `<template>${flagSvg}</template>`)
 
   if (countryENPatches.has(code)) countryEN = { ...countryEN, ...countryENPatches.get(code) }
   if (countryRUPatches.has(code)) countryRU = { ...countryRU, ...countryRUPatches.get(code) }
@@ -89,6 +95,44 @@ for (const countryCode of countryCodes) {
   })
 }
 
+function fixCodeSync(path) {
+  execSync(`npx eslint ${path} --fix`)
+  execSync(`npx prettier --write ${path}`)
+}
+
+fixCodeSync(flagComponentsDirectory)
+
+const flagImageComponentPath = path.join(__dirname, 'src/components/FlagImage.vue')
+fs.writeFileSync(
+  flagImageComponentPath,
+  `
+<template>
+  <component :is="componentName"/>
+</template>
+<script>
+import { defineComponent } from 'vue'
+
+${existingCountryCodes.map((code) => `import Flag${code} from '@/components/flags/${code}.vue'`).join('\n')}
+
+export default defineComponent({
+  components: {
+    ${existingCountryCodes.map((code) => `Flag${code}`).join(',\n')}
+  },
+  props: {
+    code: { type: String, default: undefined }
+  },
+  computed: {
+    componentName() {
+      return this.code ? \`Flag\${this.code.toUpperCase()}\` : undefined
+    }
+  }
+})
+</script>
+`
+)
+
+fixCodeSync(flagImageComponentPath)
+
 // Sort by population
 
 result.sort((left, right) => {
@@ -106,3 +150,5 @@ result.forEach((country, index) => {
 
 const datasetPath = path.join(__dirname, 'src/dataset.json')
 fs.writeFileSync(datasetPath, JSON.stringify(result, null, 2) + '\n')
+
+fixCodeSync(datasetPath)
