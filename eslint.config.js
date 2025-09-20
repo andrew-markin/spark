@@ -4,15 +4,26 @@ import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 import pluginImport from 'eslint-plugin-import'
 import pluginSimpleImportSort from 'eslint-plugin-simple-import-sort'
 import pluginVue from 'eslint-plugin-vue'
+import globals from 'globals'
 
 export default [
   { name: 'app/files-to-lint', files: ['**/*.{js,mjs,jsx,vue}'] },
-  { name: 'app/files-to-ignore', ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'] },
+  {
+    name: 'app/files-to-ignore',
+    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**', 'src/dataset.json']
+  },
   js.configs.recommended,
   ...pluginVue.configs['flat/recommended'],
   skipFormatting,
-  { env: { node: true } },
   {
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.browser,
+        ...globals.node
+      }
+    },
     plugins: {
       import: fixupPluginRules(pluginImport),
       'simple-import-sort': pluginSimpleImportSort

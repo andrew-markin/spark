@@ -24,7 +24,6 @@ export default defineConfig({
           'Lightweight brain training app designed to boost your memory and cognitive skills',
         theme_color: '#306ca1',
         background_color: '#306ca1',
-        display: 'standalone',
         orientation: 'portrait-primary',
         icons: [
           {
@@ -54,7 +53,6 @@ export default defineConfig({
     }
   },
   define: {
-    // eslint-disable-next-line no-undef
     'import.meta.env.APP_VERSION': JSON.stringify(process.env.npm_package_version)
   }
 })
