@@ -14,7 +14,7 @@ import { mapActions, mapState } from 'pinia'
 import { defineComponent } from 'vue'
 
 import CoursePage from '@/components/CoursePage.vue'
-import countries from '@/dataset.json'
+import countries from '@/dataset.js'
 import { useMainStore } from '@/stores/main'
 import { selectRandomly } from '@/utils/helpers'
 

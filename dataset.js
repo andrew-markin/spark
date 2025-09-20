@@ -4,6 +4,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const currentIsoDate = new Date().toISOString().slice(0, 10)
 
 async function getRemoteJSON(url) {
   try {
@@ -14,6 +15,18 @@ async function getRemoteJSON(url) {
     return await response.json()
   } catch (error) {
     console.error('Error fetching JSON:', error)
+  }
+}
+
+function getNpmPackageVersion(packageName) {
+  try {
+    const result = execSync(`npm list ${packageName} --json`, {
+      encoding: 'utf8'
+    })
+    const data = JSON.parse(result)
+    return data.dependencies[packageName].version
+  } catch {
+    return null
   }
 }
 
@@ -72,7 +85,7 @@ for (const countryCode of countryCodes) {
   const flagSourcePath = path.join(__dirname, `node_modules/flag-icons/flags/4x3/${code}.svg`)
   if (!fs.existsSync(flagSourcePath)) continue
 
-  const flagSvg = String(fs.readFileSync(flagSourcePath))
+  const flagSvg = fs.readFileSync(flagSourcePath)
   existingCountryCodes.push(code.toUpperCase())
 
   const flagComponentPath = path.join(flagComponentsDirectory, `${code.toUpperCase()}.vue`)
@@ -148,7 +161,36 @@ result.forEach((country, index) => {
 
 // Write dataset
 
-const datasetPath = path.join(__dirname, 'src/dataset.json')
-fs.writeFileSync(datasetPath, JSON.stringify(result, null, 2) + '\n')
+const datasetPath = path.join(__dirname, 'src/dataset.js')
+fs.writeFileSync(
+  datasetPath,
+  `
+// Derived from GeoNames data (https://www.geonames.org/)
+// License: Creative Commons Attribution 4.0 (CC BY 4.0)
+// Contains curated corrections for data accuracy
+// Last updated: ${currentIsoDate}
+
+export default ${JSON.stringify(result, null, 2)}
+`
+)
 
 fixCodeSync(datasetPath)
+
+// Update CREDITS.md file
+
+const creditsPath = path.join(__dirname, 'CREDITS.md')
+let creditsContent = fs.readFileSync(creditsPath, 'utf8')
+
+creditsContent = creditsContent.replace(
+  /<!-- DATASET_UPDATE_DATE -->.*<!-- \/DATASET_UPDATE_DATE -->/,
+  `<!-- DATASET_UPDATE_DATE -->${currentIsoDate}<!-- /DATASET_UPDATE_DATE -->`
+)
+
+const flagIconsVersion = getNpmPackageVersion('flag-icons')
+
+creditsContent = creditsContent.replace(
+  /<!-- FLAG_ICONS_VERSION -->.*<!-- \/FLAG_ICONS_VERSION -->/,
+  `<!-- FLAG_ICONS_VERSION -->${flagIconsVersion}<!-- /FLAG_ICONS_VERSION -->`
+)
+
+fs.writeFileSync(creditsPath, creditsContent, 'utf8')
