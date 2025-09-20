@@ -1374,7 +1374,7 @@
       "en": "Yerevan",
       "ru": "Ереван"
     },
-    "population": 3084400,
+    "population": 3076200,
     "level": 5
   },
   {
@@ -1452,7 +1452,7 @@
       "en": "Tbilisi",
       "ru": "Тбилиси"
     },
-    "population": 3704500,
+    "population": 3731000,
     "level": 5
   },
   {
@@ -1963,6 +1963,19 @@
     "level": 7
   },
   {
+    "code": "az",
+    "name": {
+      "en": "Azerbaijan",
+      "ru": "Азербайджан"
+    },
+    "capital": {
+      "en": "Baku",
+      "ru": "Баку"
+    },
+    "population": 9942334,
+    "level": 7
+  },
+  {
     "code": "jo",
     "name": {
       "en": "Jordan",
@@ -1986,19 +1999,6 @@
       "ru": "Стокгольм"
     },
     "population": 10183175,
-    "level": 7
-  },
-  {
-    "code": "az",
-    "name": {
-      "en": "Azerbaijan",
-      "ru": "Азербайджан"
-    },
-    "capital": {
-      "en": "Baku",
-      "ru": "Баку"
-    },
-    "population": 10224900,
     "level": 7
   },
   {

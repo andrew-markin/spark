@@ -1,20 +1,15 @@
 <template>
-  <img v-if="valid" :src="url" class="flag" />
+  <flag-image :code class="flag" />
 </template>
 
 <script>
 import { defineComponent } from 'vue'
 
+import FlagImage from '@/components/FlagImage.vue'
+
 export default defineComponent({
-  props: { code: { type: String, default: undefined } },
-  computed: {
-    valid() {
-      return this.code && /^([a-z]{2})$/.test(this.code)
-    },
-    url() {
-      return `/flags/${this.code}.svg`
-    }
-  }
+  components: { FlagImage },
+  props: { code: { type: String, default: undefined } }
 })
 </script>
 
