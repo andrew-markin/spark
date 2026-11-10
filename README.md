@@ -77,6 +77,9 @@ npm run dev
 # Build the app for production (outputs to /dist)
 npm run build
 
+# Run the unit tests with Vitest
+npm test
+
 # Lint the source code with ESLint
 npm run lint
 
