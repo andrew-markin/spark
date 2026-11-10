@@ -3,6 +3,11 @@
 [![Deploy](https://github.com/andrew-markin/spark/actions/workflows/deploy.yml/badge.svg)](https://github.com/andrew-markin/spark/actions/workflows/deploy.yml)
 [![License: GPL v3](https://img.shields.io/github/license/andrew-markin/spark)](LICENSE)
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/demo-dark.webp">
+  <img align="right" src="assets/demo-light.webp" width="340" alt="Spark on a phone: flags are shown, the answers revealed and graded as known or not, then the language is switched to Russian in the settings and the same course goes on">
+</picture>
+
 Geography trainer. A progressive web app that drills the capitals and flags of 241 countries and
 territories, starting with the best known ones, and keeps asking what you don't know yet until you
 do.
@@ -78,6 +83,12 @@ npm run build     # production build into dist/
 npm run preview   # serves the production build
 npm run dataset   # refreshes countries and flags, see above
 ```
+
+The animation above is recorded by `npm run demo` with
+[`scripts/demo/record.js`](scripts/demo/record.js), in the light and the dark theme: it builds the
+app, plays a scripted session in headless Google Chrome and encodes the screencasts to
+`assets/demo-light.webp` and `assets/demo-dark.webp` with ffmpeg. Record them again when the
+interface changes.
 
 The build drops the Quasar styles the app doesn't use with
 [`plugins/purge-css.js`](plugins/purge-css.js), and generates plain launch images for iPhone and iPad

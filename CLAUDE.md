@@ -24,10 +24,11 @@ At the start of a conversation, if a check below is due (its next date has passe
 happened), remind the user of it in a line. Once it is done or the user puts it off, update the
 dates here and commit.
 
-| Check                                                                                                                                        | Last done  | Next                                      |
-| -------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ----------------------------------------- |
-| New iPhone and iPad screen sizes are in `SCREENS` of `plugins/ios-splash-screens.js`, otherwise the app launches with a white screen on them | 2026-11-11 | 2027-09-20, after Apple's September event |
-| The dataset is refreshed with `npm run dataset`, capitals and populations change now and then                                                | 2026-11-10 | 2027-11-10                                |
+| Check                                                                                                                                                                                                                 | Last done  | Next                                      |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ----------------------------------------- |
+| New iPhone and iPad screen sizes are in `SCREENS` of `plugins/ios-splash-screens.js`, otherwise the app launches with a white screen on them                                                                          | 2026-11-11 | 2027-09-20, after Apple's September event |
+| The dataset is refreshed with `npm run dataset`, capitals and populations change now and then                                                                                                                         | 2026-11-10 | 2027-11-10                                |
+| The README animations `assets/demo-light.webp` and `assets/demo-dark.webp` match the interface: re-record with `npm run demo`, then look at the frames decoded by Pillow (ImageMagick shows false trails of the hand) | 2026-11-11 | after a visible change of the interface   |
 
 ## Decisions to keep
 
