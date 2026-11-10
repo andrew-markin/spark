@@ -6,3 +6,6 @@
 !.vscode/extensions.json
 !.vscode/settings.json
 .eslintcache
+
+# Claude Code
+.claude/
