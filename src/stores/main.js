@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia'
 
+import { readItem, writeItem } from '@/utils/storage'
+
 export const useMainStore = defineStore('main', {
   state: () => {
-    const scores = JSON.parse(localStorage.getItem('scores')) || []
-    return { theme: undefined, scores }
+    const scores = readItem('scores', [])
+    return { scores: Array.isArray(scores) ? scores : [] }
   },
   getters: {
     getScore: (state) => (course, fractionDigits) => {
@@ -17,13 +19,14 @@ export const useMainStore = defineStore('main', {
       const score = this.scores.find((score) => score.course === course)
       if (!score) this.scores.push({ course, value })
       else score.value = value
-      localStorage.setItem('scores', JSON.stringify(this.scores))
+      writeItem('scores', this.scores)
     },
     saveContext(course, value) {
-      localStorage.setItem(`course-context#${course}`, JSON.stringify(value))
+      writeItem(`course-context#${course}`, value)
     },
     restoreContext(course) {
-      return JSON.parse(localStorage.getItem(`course-context#${course}`))
+      const context = readItem(`course-context#${course}`)
+      return context && typeof context === 'object' ? context : undefined
     }
   }
 })
