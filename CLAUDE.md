@@ -67,3 +67,8 @@ dates here and commit.
   rounded to device pixels, so at scales like 125% (GNOME large text) the letters sat a pixel or
   two high. Check such things by the pixels at real scales (`--force-device-scale-factor`), the
   scale emulated through DevTools rounds differently.
+- The README animation floats beside the intro at a width of 420, which GitHub pages 1280 to 1920
+  wide lay out with the whole intro list beside it and the line of the "How to use" heading below
+  it (no `#` or `##` heading may sit beside the animation, GitHub draws its line over the image).
+  Changing the intro or the width, measure it on the GitHub page again: the list has to end above
+  the bottom of the image, the heading line below it.

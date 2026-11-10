@@ -5,16 +5,15 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/demo-dark.webp">
-  <img align="right" src="assets/demo-light.webp" width="340" alt="Spark on a phone: flags are shown, the answers revealed and graded as known or not, then the language is switched to Russian in the settings and the same course goes on">
+  <img align="right" src="assets/demo-light.webp" width="420" alt="Spark on a phone: flags are shown, the answers revealed and graded as known or not, then the language is switched to Russian in the settings and the same course goes on">
 </picture>
 
 Geography trainer. A progressive web app that drills the capitals and flags of 241 countries and
 territories, starting with the best known ones, and keeps asking what you don't know yet until you
 do.
 
-**Try it at [spark.mayfleet.com](https://spark.mayfleet.com/).** To use it like an app, offline
-too, install it: in Safari on iPhone or iPad tap Share → Add to Home Screen, in Chrome tap Install
-app (or Add to Home screen) in the menu.
+**Try it at [spark.mayfleet.com](https://spark.mayfleet.com/)**, and install it to use it like an
+app, offline too.
 
 - **Four courses:** country → capital, capital → country, flag → country and country → flag, each
   with progress of its own.
@@ -23,12 +22,13 @@ app (or Add to Home screen) in the menu.
 - **Well known countries first:** the more populous a country, the sooner it is asked, so smaller
   ones join in gradually.
 - **English and Russian**, picked by the browser or in the settings, light and dark themes.
-- **Keyboard friendly:** Space or Enter reveals the answer, the arrow keys grade it.
 - **Works offline** once installed, flags included. Progress stays on the device: no sign-up, no
   ads, no tracking.
-- **Free and open source** under the GPL-3.0.
 
 ## How to use
+
+To install the app, in Safari on iPhone or iPad tap Share → Add to Home Screen, in Chrome tap
+Install app (or Add to Home screen) in the menu. Then:
 
 1. Pick a course and look at the question: a country, a capital or a flag.
 2. Recall the answer, then tap **Reveal the answer** (or press Space / Enter).
