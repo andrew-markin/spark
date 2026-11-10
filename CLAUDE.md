@@ -40,9 +40,12 @@ dates here and commit.
 - `plugins/purge-css.js` keeps the stylesheet names, and the service worker checks stylesheets by
   content (`dontCacheBustURLsMatching` in `vite.config.js`). Renaming purged stylesheets would
   change the scripts referring to them without changing their names, so the service worker
-  would keep stale ones. Classes Quasar puts together from templates, like
-  `q-radio__inner--${state}`, are kept by the plugin automatically; look at every screen in both
-  themes after Quasar updates anyway.
+  would keep stale ones. Classes Quasar puts together at runtime, like
+  `q-radio__inner--${state}` or `${vertical ? 'items' : 'justify'}-${align}`, are kept by the
+  plugin automatically. A missed one breaks the layout quietly (the logo bolt moved off center
+  once, `justify-center` was dropped), so after Quasar updates compare the computed styles of
+  every element on every screen, in both themes, between `npm run dev` and `npm run preview`,
+  not only by eye.
 - The page background is set on `html` in `index.html`, from the theme saved in the settings
   before the app loads and from Quasar afterwards (`main.js`). `color-scheme` follows the theme as
   well: a `light dark` meta tag makes the default text white on the light theme of a dark system.
