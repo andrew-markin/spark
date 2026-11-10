@@ -23,7 +23,7 @@ This project utilizes data from GeoNames obtained through automated periodic upd
 #### Data Acquisition Method
 
 - **Source:** GeoNames Web API (`countryInfoJSON` service)
-- **Endpoint:** `http://api.geonames.org/countryInfoJSON`
+- **Endpoint:** `https://secure.geonames.org/countryInfoJSON`
 - **Method:** Automated script executed periodically to fetch and store a snapshot of country data
 - **Purpose:** To maintain an up-to-date local repository of country information for offline use
 

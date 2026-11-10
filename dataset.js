@@ -1,4 +1,4 @@
-import { execSync } from 'child_process'
+import { execFileSync } from 'child_process'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -6,23 +6,34 @@ import { fileURLToPath } from 'url'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const currentIsoDate = new Date().toISOString().slice(0, 10)
 
-async function getRemoteJSON(url) {
-  try {
-    const response = await fetch(url)
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
+async function getCountries(lang) {
+  const url = new URL(GEONAMES_ENDPOINT)
+  url.searchParams.set('username', GEONAMES_USERNAME)
+  url.searchParams.set('lang', lang)
+  // GeoNames sometimes leaves a request hanging, a new one usually goes through
+  let data
+  for (let attempt = 1; !data; attempt++) {
+    try {
+      const response = await fetch(url, { signal: AbortSignal.timeout(30000) })
+      if (!response.ok) throw new Error(`GeoNames request failed with HTTP ${response.status}`)
+      data = await response.json()
+    } catch (error) {
+      if (attempt >= 3) throw error
+      console.log(
+        `GeoNames request (${lang}) failed, retrying: ${error.cause?.code ?? error.message}`
+      )
     }
-    return await response.json()
-  } catch (error) {
-    console.error('Error fetching JSON:', error)
   }
+  // GeoNames reports errors, like an exceeded limit or a wrong username, with HTTP 200
+  if (!Array.isArray(data.geonames)) {
+    throw new Error(`GeoNames request failed: ${data.status?.message ?? 'no data'}`)
+  }
+  return data
 }
 
 function getNpmPackageVersion(packageName) {
   try {
-    const result = execSync(`npm list ${packageName} --json`, {
-      encoding: 'utf8'
-    })
+    const result = execFileSync('npm', ['list', packageName, '--json'], { encoding: 'utf8' })
     const data = JSON.parse(result)
     return data.dependencies[packageName].version
   } catch {
@@ -30,12 +41,12 @@ function getNpmPackageVersion(packageName) {
   }
 }
 
-const GEONAMES_ENDPOINT = 'http://api.geonames.org/countryInfoJSON'
+const GEONAMES_ENDPOINT = 'https://secure.geonames.org/countryInfoJSON'
 const GEONAMES_USERNAME = process.env.GEONAMES_USERNAME || 'demo'
-const GEONAMES_REQUEST = `${GEONAMES_ENDPOINT}?username=${GEONAMES_USERNAME}`
 
-const countriesEN = await getRemoteJSON(`${GEONAMES_REQUEST}&lang=en`)
-const countriesRU = await getRemoteJSON(`${GEONAMES_REQUEST}&lang=ru`)
+// Fetched before anything is changed, so a failed request leaves the project as it was
+const countriesEN = await getCountries('en')
+const countriesRU = await getCountries('ru')
 
 const countryCodesSet = new Set()
 const countriesENMap = new Map()
@@ -66,7 +77,7 @@ const countryRUPatches = new Map([
   ['cd', { countryName: 'ДР Конго' }]
 ])
 
-const englishRegExp = /[a-zA-Z]/g
+const englishRegExp = /[a-zA-Z]/
 const flagComponentsDirectory = path.join(__dirname, 'src/components/flags')
 
 fs.rmSync(flagComponentsDirectory, { recursive: true, force: true })
@@ -109,8 +120,8 @@ for (const countryCode of countryCodes) {
 }
 
 function fixCodeSync(path) {
-  execSync(`npx eslint ${path} --fix`)
-  execSync(`npx prettier --write ${path}`)
+  execFileSync('npx', ['eslint', path, '--fix'])
+  execFileSync('npx', ['prettier', '--write', path])
 }
 
 fixCodeSync(flagComponentsDirectory)
