@@ -11,7 +11,6 @@
     "preview": "vite preview",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
-    "deploy": "sh deploy.sh",
     "dataset": "node -r dotenv/config dataset.js",
     "test": "vitest run"
   },
@@ -41,5 +40,8 @@
     "vite": "^7.1.5",
     "vite-plugin-pwa": "^1.0.3",
     "vitest": "^4.1.12"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
   }
 }

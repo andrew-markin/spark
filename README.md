@@ -89,12 +89,15 @@ npm run format
 # Preview the production build locally
 npm run preview
 
-# Deploy the production build to GitHub Pages
-npm run deploy
-
 # Update the dataset (the .env file configuration may be required)
 npm run dataset
 ```
+
+### Deployment
+
+Every push to `main` is linted, tested, built and published to GitHub Pages by the
+[Deploy](.github/workflows/deploy.yml) workflow. Pull requests go through the same checks without
+being published. Dependabot proposes dependency updates weekly.
 
 ## 🤝 Contributing
 
