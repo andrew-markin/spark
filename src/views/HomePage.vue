@@ -4,17 +4,17 @@
       <div class="text-h6 non-selectable muted">{{ $t('APP_VERSION', { number: version }) }}</div>
     </template>
     <course-button v-for="course of courses" :key="course.name" :course="course" />
-    <menu-button :icon="fasScrewdriverWrench" :to="{ name: 'settings' }" class="q-mt-xl">
+    <menu-button :icon="mdiCog" :to="{ name: 'settings' }" class="q-mt-xl">
       {{ $t('SETTINGS') }}
     </menu-button>
-    <menu-button :icon="fasLightbulb" :to="{ name: 'about' }">
+    <menu-button :icon="mdiInformation" :to="{ name: 'about' }">
       {{ $t('ABOUT') }}
     </menu-button>
   </scrollable-page>
 </template>
 
 <script setup>
-import { fasLightbulb, fasScrewdriverWrench } from '@quasar/extras/fontawesome-v7'
+import { mdiCog, mdiInformation } from '@quasar/extras/mdi-v7'
 import { useI18n } from 'petite-vue-i18n'
 import { computed } from 'vue'
 

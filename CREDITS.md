@@ -61,6 +61,15 @@ This project uses [flag-icons](https://github.com/lipis/flag-icons) npm package 
 - **Usage:** Displaying country flags alongside country information
 - **Version:** <!-- FLAG_ICONS_VERSION -->7.6.0<!-- /FLAG_ICONS_VERSION -->
 
+### Material Design Icons
+
+This project uses icons from [Material Design Icons](https://pictogrammers.com/library/mdi/) by
+Pictogrammers, imported one by one through the `@quasar/extras` npm package.
+
+- **Source:** https://github.com/Templarian/MaterialDesign
+- **License:** Pictogrammers Free License, icons under the Apache License 2.0
+- **Usage:** Settings, About and link icons in the menus
+
 ---
 
 _This notice must be retained in all copies or substantial portions of the software and documentation._

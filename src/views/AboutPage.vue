@@ -13,17 +13,17 @@
       <div class="text-h5">{{ $t('_APP_TITLE') }}</div>
       <div class="text-subtitle1">{{ $t('APP_VERSION', { number: version }) }}</div>
     </div>
-    <menu-button :icon="fabGithub" :href="github">
+    <menu-button :icon="mdiGithub" :href="github">
       {{ $t('GITHUB_REPOSITORY') }}
     </menu-button>
-    <menu-button :icon="fabLinkedin" :href="linkedin">
+    <menu-button :icon="mdiLinkedin" :href="linkedin">
       {{ $t('LINKEDIN_PROFILE') }}
     </menu-button>
   </scrollable-page>
 </template>
 
 <script setup>
-import { fabGithub, fabLinkedin } from '@quasar/extras/fontawesome-v7'
+import { mdiGithub, mdiLinkedin } from '@quasar/extras/mdi-v7'
 
 import MenuButton from '@/components/MenuButton.vue'
 import ScrollablePage from '@/components/ScrollablePage.vue'
