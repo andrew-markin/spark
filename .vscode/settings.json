@@ -14,7 +14,12 @@
   "explorer.compactFolders": false,
   "files.encoding": "utf8",
   "files.eol": "\n",
-  "files.exclude": { "package-lock.json": true, "node_modules": true, "dist": true },
+  "files.exclude": {
+    ".eslintcache": true,
+    "dist": true,
+    "node_modules": true,
+    "package-lock.json": true
+  },
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true
