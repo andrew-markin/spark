@@ -36,52 +36,38 @@
   </app-page>
 </template>
 
-<script>
+<script setup>
 import { debounce } from 'quasar'
-import { defineComponent } from 'vue'
+import { computed } from 'vue'
 
 import AppPage from './AppPage.vue'
 import CardButton from './CardButton.vue'
 
-export default defineComponent({
-  components: { AppPage, CardButton },
-  props: {
-    title: { type: String, default: undefined },
-    score: { type: Number, default: 0 },
-    modelValue: { type: Boolean, default: false }
-  },
-  emits: ['update:modelValue', 'grade', 'drop'],
-  computed: {
-    scoreLabel() {
-      return Number(this.score || 0).toFixed(2)
-    },
-    revealed: {
-      get() {
-        return this.modelValue
-      },
-      set(value) {
-        this.$emit('update:modelValue', value)
-      }
-    }
-  },
-  created() {
-    // Act immediately, but ignore any further action until taps settle down, so a double tap
-    // on "Reveal the Answer" doesn't also grade the answer, as the grading buttons take its place
-    this.act = debounce((action) => action(), 300, true)
-  },
-  methods: {
-    reveal() {
-      this.act(() => {
-        this.revealed = true
-      })
-    },
-    grade(success) {
-      this.act(() => this.$emit('grade', success))
-    },
-    // All the progress of the course is lost, so on a long press only, not on a stray tap
-    drop() {
-      this.$emit('drop')
-    }
-  }
+const props = defineProps({
+  title: { type: String, default: undefined },
+  score: { type: Number, default: 0 }
 })
+const revealed = defineModel({ type: Boolean, default: false })
+const emit = defineEmits(['grade', 'drop'])
+
+const scoreLabel = computed(() => Number(props.score || 0).toFixed(2))
+
+// Act immediately, but ignore any further action until taps settle down, so a double tap
+// on "Reveal the Answer" doesn't also grade the answer, as the grading buttons take its place
+const act = debounce((action) => action(), 300, true)
+
+function reveal() {
+  act(() => {
+    revealed.value = true
+  })
+}
+
+function grade(success) {
+  act(() => emit('grade', success))
+}
+
+// All the progress of the course is lost, so on a long press only, not on a stray tap
+function drop() {
+  emit('drop')
+}
 </script>

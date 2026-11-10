@@ -9,76 +9,72 @@
   </course-page>
 </template>
 
-<script>
-import { mapActions, mapState } from 'pinia'
-import { defineComponent } from 'vue'
+<script setup>
+import { computed, ref } from 'vue'
 
 import CoursePage from '@/components/CoursePage.vue'
 import countries from '@/dataset.js'
 import { useMainStore } from '@/stores/main'
 import { pickOption } from '@/trainer'
 
-export default defineComponent({
-  components: { CoursePage },
-  props: {
-    course: { type: String, default: undefined },
-    title: { type: String, default: undefined }
-  },
-  data: () => ({ options: [], option: undefined, iteration: 0, revealed: false }),
-  computed: {
-    ...mapState(useMainStore, ['getScore']),
-    score() {
-      return this.getScore(this.course)
-    }
-  },
-  mounted() {
-    const { iteration, variables } = {
-      iteration: 0,
-      variables: [],
-      ...this.restoreContext(this.course)
-    }
-    this.iteration = iteration
-    const variablesMap = new Map(variables)
-    this.options = countries.map((country) => {
-      return { ...country, ...{ asked: undefined, confirms: 0, ...variablesMap.get(country.code) } }
-    })
-    this.save()
-    this.reset()
-  },
-  methods: {
-    ...mapActions(useMainStore, ['saveScore', 'saveContext', 'restoreContext']),
-    reset() {
-      this.revealed = false
-      this.option = pickOption(this.options, this.iteration)
-    },
-    grade(success) {
-      if (success) this.option.confirms++
-      else this.option.confirms = 0
-      this.option.asked = this.iteration++
-      this.save()
-      this.reset()
-    },
-    save() {
-      this.saveContext(this.course, {
-        iteration: this.iteration,
-        variables: this.options.map(({ code, asked, confirms }) => [code, { asked, confirms }])
-      })
-      let confirmsCount = 0
-      for (const option of this.options) {
-        if (option.confirms > 0) confirmsCount++
-      }
-      const score = (confirmsCount * 100) / this.options.length
-      this.saveScore(this.course, score)
-    },
-    drop() {
-      this.iteration = 0
-      for (const option of this.options) {
-        option.asked = undefined
-        option.confirms = 0
-      }
-      this.save()
-      this.reset()
-    }
-  }
+const props = defineProps({
+  course: { type: String, default: undefined },
+  title: { type: String, default: undefined }
 })
+
+const store = useMainStore()
+
+const options = ref([])
+const option = ref()
+const iteration = ref(0)
+const revealed = ref(false)
+
+const score = computed(() => store.getScore(props.course))
+
+function reset() {
+  revealed.value = false
+  option.value = pickOption(options.value, iteration.value)
+}
+
+function save() {
+  store.saveContext(props.course, {
+    iteration: iteration.value,
+    variables: options.value.map(({ code, asked, confirms }) => [code, { asked, confirms }])
+  })
+  const confirmed = options.value.filter((option) => option.confirms > 0).length
+  store.saveScore(props.course, (confirmed * 100) / options.value.length)
+}
+
+function grade(success) {
+  if (!option.value) return
+  if (success) option.value.confirms++
+  else option.value.confirms = 0
+  option.value.asked = iteration.value++
+  save()
+  reset()
+}
+
+function drop() {
+  iteration.value = 0
+  for (const option of options.value) {
+    option.asked = undefined
+    option.confirms = 0
+  }
+  save()
+  reset()
+}
+
+// Progress of earlier visits, options are matched by country code, so the countries
+// added to or removed from the dataset since then are taken care of
+const context = { iteration: 0, variables: [], ...store.restoreContext(props.course) }
+const variables = new Map(Array.isArray(context.variables) ? context.variables : [])
+iteration.value = context.iteration
+options.value = countries.map((country) => ({
+  ...country,
+  asked: undefined,
+  confirms: 0,
+  ...variables.get(country.code)
+}))
+save()
+reset()
 </script>
