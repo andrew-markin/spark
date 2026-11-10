@@ -14,6 +14,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'inline',
+      includeAssets: ['favicon.svg', 'favicon.png', 'robots.txt'],
       workbox: {
         // The plugin enables these for autoUpdate only with its own registration
         // script, not with the inline one, so new versions would wait for all tabs to close
@@ -31,6 +32,9 @@ export default defineConfig({
         theme_color: '#306ca1',
         background_color: '#306ca1',
         orientation: 'portrait-primary',
+        display: 'standalone',
+        scope: '/',
+        start_url: '/',
         icons: [
           {
             src: 'favicon.svg',
@@ -39,10 +43,22 @@ export default defineConfig({
             purpose: 'any'
           },
           {
-            src: 'favicon.png',
-            sizes: '180x180',
+            src: 'icon-192.png',
+            sizes: '192x192',
             type: 'image/png',
             purpose: 'any'
+          },
+          {
+            src: 'icon-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: 'icon-maskable-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable'
           }
         ]
       }
