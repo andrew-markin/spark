@@ -10,11 +10,10 @@
     @keydown.enter.space.prevent.stop="$event.currentTarget.click()"
   >
     <span class="q-focus-helper"></span>
-    <!-- The icon is centered on the whole line, in a line of text it would be centered on
-         the lowercase letters, lower than the text looks -->
-    <q-card-section class="q-pa-sm row no-wrap items-center">
+    <!-- The icon and the letters themselves are centered, see the styles -->
+    <q-card-section class="content q-pa-sm row no-wrap items-center">
       <q-icon v-if="icon" left :name="icon" size="2rem" />
-      <div class="col"><slot></slot></div>
+      <div class="text col"><slot></slot></div>
     </q-card-section>
   </q-card>
 </template>
@@ -42,5 +41,18 @@ function route() {
 .q-focusable:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: -5px;
+}
+
+/* The space a line of text keeps above and below its letters comes from the font metrics,
+   rounded to whole device pixels, so at scales like 125% the letters sat about a pixel high.
+   Trimmed to the capitals and the baseline, the letters are centered next to the icon, in
+   browsers without text-box the line is centered as before. The buttons keep the height of
+   a line, as the text alone is shorter now. */
+.content {
+  min-height: calc(2rem + 16px);
+}
+
+.text {
+  text-box: trim-both cap alphabetic;
 }
 </style>

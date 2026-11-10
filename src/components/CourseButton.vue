@@ -23,3 +23,11 @@ const store = useMainStore()
 const { locale } = useI18n()
 const scoreLabel = computed(() => formatPercent(store.getScore(props.course.name), locale.value))
 </script>
+
+<style scoped>
+/* Letters centered like in the other buttons (see CardButton), the title and the score are
+   flex items here, which the trimming there doesn't reach */
+.row > div {
+  text-box: trim-both cap alphabetic;
+}
+</style>

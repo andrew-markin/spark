@@ -61,3 +61,8 @@ dates here and commit.
 - The version has two numbers, like 1.0, raised as 1.1, 1.2 and so on, or 2.0 for a big change.
   `package.json` keeps a third one at zero for npm (`npm version 1.1.0 --no-git-tag-version`),
   and `vite.config.js` passes the first two to the app.
+- Button texts are trimmed to their capitals and baseline (`text-box` in `CardButton.vue` and
+  `CourseButton.vue`) and centered as such. Line boxes take their spacing from the font metrics
+  rounded to device pixels, so at scales like 125% (GNOME large text) the letters sat a pixel or
+  two high. Check such things by the pixels at real scales (`--force-device-scale-factor`), the
+  scale emulated through DevTools rounds differently.
