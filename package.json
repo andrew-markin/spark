@@ -15,7 +15,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@quasar/extras": "^1.17.0",
+    "@quasar/extras": "^2.1.0",
     "petite-vue-i18n": "^11.1.12",
     "pinia": "^3.0.3",
     "quasar": "^2.18.2",
