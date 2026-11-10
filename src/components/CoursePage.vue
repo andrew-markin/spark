@@ -38,7 +38,7 @@
 
 <script setup>
 import { debounce } from 'quasar'
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted } from 'vue'
 
 import AppPage from './AppPage.vue'
 import CardButton from './CardButton.vue'
@@ -70,4 +70,17 @@ function grade(success) {
 function drop() {
   emit('drop')
 }
+
+// Space or Enter reveals the answer, the arrows point at the grading buttons
+function onKeydown(event) {
+  if (event.repeat || event.ctrlKey || event.altKey || event.metaKey) return
+  if (!revealed.value && [' ', 'Enter'].includes(event.key)) reveal()
+  else if (revealed.value && event.key === 'ArrowLeft') grade(false)
+  else if (revealed.value && event.key === 'ArrowRight') grade(true)
+  else return
+  event.preventDefault()
+}
+
+onMounted(() => window.addEventListener('keydown', onKeydown))
+onUnmounted(() => window.removeEventListener('keydown', onKeydown))
 </script>

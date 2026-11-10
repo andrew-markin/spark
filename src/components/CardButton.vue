@@ -1,9 +1,13 @@
 <template>
+  <!-- Reachable with Tab and pressed with Enter or Space, the focus shown like the hover -->
   <q-card
     v-ripple
     flat
-    class="non-selectable cursor-pointer q-hoverable bg-secondary text-white q-pa-none"
+    role="button"
+    tabindex="0"
+    class="non-selectable cursor-pointer q-hoverable q-focusable bg-secondary text-white q-pa-none"
     @click="route()"
+    @keydown.enter.space.prevent.stop="$event.currentTarget.click()"
   >
     <span class="q-focus-helper"></span>
     <q-card-section class="q-pa-sm">
@@ -30,3 +34,11 @@ function route() {
   if (props.href) return openURL(props.href)
 }
 </script>
+
+<style scoped>
+/* Quasar's focus highlight is a light veil, hardly seen on the light blue buttons */
+.q-focusable:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -5px;
+}
+</style>
