@@ -6,7 +6,7 @@
         class="text-h6 non-selectable cursor-pointer"
         :title="$t('HOLD_TO_RESET')"
       >
-        {{ scoreLabel }}%
+        {{ scoreLabel }}
       </div>
     </template>
     <q-card-section class="col relative-position">
@@ -37,8 +37,11 @@
 </template>
 
 <script setup>
+import { useI18n } from 'petite-vue-i18n'
 import { debounce } from 'quasar'
 import { computed, onMounted, onUnmounted } from 'vue'
+
+import { formatPercent } from '@/i18n'
 
 import AppPage from './AppPage.vue'
 import CardButton from './CardButton.vue'
@@ -50,7 +53,8 @@ const props = defineProps({
 const revealed = defineModel({ type: Boolean, default: false })
 const emit = defineEmits(['grade', 'drop'])
 
-const scoreLabel = computed(() => Number(props.score || 0).toFixed(2))
+const { locale } = useI18n()
+const scoreLabel = computed(() => formatPercent(props.score, locale.value))
 
 // Act immediately, but ignore any further action until taps settle down, so a double tap
 // on "Reveal the Answer" doesn't also grade the answer, as the grading buttons take its place

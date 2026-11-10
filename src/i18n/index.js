@@ -51,4 +51,14 @@ export const setLocale = (value) => {
   applyLocale()
 }
 
+// Scores as percents written the way the language does, like 0.41% or 0,41 %
+const percentFormats = new Map()
+export const formatPercent = (value, locale) => {
+  if (!percentFormats.has(locale)) {
+    const options = { style: 'percent', minimumFractionDigits: 2, maximumFractionDigits: 2 }
+    percentFormats.set(locale, new Intl.NumberFormat(locale, options))
+  }
+  return percentFormats.get(locale).format((value || 0) / 100)
+}
+
 export default i18n
