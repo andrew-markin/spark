@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { debounce } from 'quasar'
 import { defineComponent } from 'vue'
 
 import AppPage from './AppPage.vue'
@@ -63,12 +64,19 @@ export default defineComponent({
       }
     }
   },
+  created() {
+    // Act immediately, but ignore any further action until taps settle down, so a double tap
+    // on "Reveal the Answer" doesn't also grade the answer, as the grading buttons take its place
+    this.act = debounce((action) => action(), 300, true)
+  },
   methods: {
     reveal() {
-      this.revealed = true
+      this.act(() => {
+        this.revealed = true
+      })
     },
     grade(success) {
-      this.$emit('grade', success)
+      this.act(() => this.$emit('grade', success))
     },
     // All the progress of the course is lost, so on a long press only, not on a stray tap
     drop() {
