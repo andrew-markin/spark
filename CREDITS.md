@@ -59,7 +59,7 @@ This project uses [flag-icons](https://github.com/lipis/flag-icons) npm package 
 - **Source:** https://github.com/lipis/flag-icons
 - **License:** MIT License
 - **Usage:** Displaying country flags alongside country information
-- **Version:** <!-- FLAG_ICONS_VERSION -->7.5.0<!-- /FLAG_ICONS_VERSION -->
+- **Version:** <!-- FLAG_ICONS_VERSION -->7.6.0<!-- /FLAG_ICONS_VERSION -->
 
 ---
 

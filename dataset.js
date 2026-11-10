@@ -78,12 +78,11 @@ const countryRUPatches = new Map([
 ])
 
 const englishRegExp = /[a-zA-Z]/
-const flagComponentsDirectory = path.join(__dirname, 'src/components/flags')
+// Flags are served as files, the service worker precaches them for offline use
+const flagsDirectory = path.join(__dirname, 'public/flags')
 
-fs.rmSync(flagComponentsDirectory, { recursive: true, force: true })
-fs.mkdirSync(flagComponentsDirectory, { recursive: true })
-
-const existingCountryCodes = []
+fs.rmSync(flagsDirectory, { recursive: true, force: true })
+fs.mkdirSync(flagsDirectory, { recursive: true })
 
 for (const countryCode of countryCodes) {
   let countryEN = countriesENMap.get(countryCode)
@@ -96,11 +95,7 @@ for (const countryCode of countryCodes) {
   const flagSourcePath = path.join(__dirname, `node_modules/flag-icons/flags/4x3/${code}.svg`)
   if (!fs.existsSync(flagSourcePath)) continue
 
-  const flagSvg = fs.readFileSync(flagSourcePath)
-  existingCountryCodes.push(code.toUpperCase())
-
-  const flagComponentPath = path.join(flagComponentsDirectory, `${code.toUpperCase()}.vue`)
-  fs.writeFileSync(flagComponentPath, `<template>${flagSvg}</template>`)
+  fs.copyFileSync(flagSourcePath, path.join(flagsDirectory, `${code}.svg`))
 
   if (countryENPatches.has(code)) countryEN = { ...countryEN, ...countryENPatches.get(code) }
   if (countryRUPatches.has(code)) countryRU = { ...countryRU, ...countryRUPatches.get(code) }
@@ -123,39 +118,6 @@ function fixCodeSync(path) {
   execFileSync('npx', ['eslint', path, '--fix'])
   execFileSync('npx', ['prettier', '--write', path])
 }
-
-fixCodeSync(flagComponentsDirectory)
-
-const flagImageComponentPath = path.join(__dirname, 'src/components/FlagImage.vue')
-fs.writeFileSync(
-  flagImageComponentPath,
-  `
-<template>
-  <component :is="componentName"/>
-</template>
-<script>
-import { defineComponent } from 'vue'
-
-${existingCountryCodes.map((code) => `import Flag${code} from '@/components/flags/${code}.vue'`).join('\n')}
-
-export default defineComponent({
-  components: {
-    ${existingCountryCodes.map((code) => `Flag${code}`).join(',\n')}
-  },
-  props: {
-    code: { type: String, default: undefined }
-  },
-  computed: {
-    componentName() {
-      return this.code ? \`Flag\${this.code.toUpperCase()}\` : undefined
-    }
-  }
-})
-</script>
-`
-)
-
-fixCodeSync(flagImageComponentPath)
 
 // Sort by population
 

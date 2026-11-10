@@ -19,6 +19,8 @@ export default defineConfig({
         // script, not with the inline one, so new versions would wait for all tabs to close
         skipWaiting: true,
         clientsClaim: true,
+        // Flags (public/flags) included: the service worker is installed only once all of
+        // them are loaded, so the courses work offline right after the first visit
         globPatterns: ['**/*.{js,css,html,png,svg,ttf,woff,woff2}']
       },
       manifest: {
@@ -58,8 +60,5 @@ export default defineConfig({
   },
   define: {
     'import.meta.env.APP_VERSION': JSON.stringify(process.env.npm_package_version)
-  },
-  build: {
-    chunkSizeWarningLimit: 2000
   }
 })
