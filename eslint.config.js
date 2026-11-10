@@ -49,7 +49,7 @@ export default defineConfig([
   {
     // Run by Node at build time or by hand, not shipped with the app
     name: 'app/node-scripts',
-    files: ['*.js', 'plugins/**/*.js'],
+    files: ['*.js', 'plugins/**/*.js', 'scripts/**/*.js'],
     languageOptions: {
       globals: {
         ...globals.node

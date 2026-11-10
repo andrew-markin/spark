@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Spark demo</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        overflow: hidden;
+        font-family:
+          Roboto,
+          -apple-system,
+          'Helvetica Neue',
+          Arial,
+          sans-serif;
+      }
+      /* As much room on the left of the phone as the hand has on the right, so the phone is
+         in the middle of the animation floating beside the README text */
+      .device {
+        position: absolute;
+        left: 112px;
+        top: 18px;
+      }
+      /* A generic modern phone: rounded body, thin metal rim, side buttons and a camera island */
+      .phone {
+        position: relative;
+        padding: 12px;
+        border-radius: 56px;
+        background: #121214;
+        /* No drop shadow: the margins around are too narrow for it, and it would be cut off
+           into a visible edge of the animation */
+        box-shadow:
+          0 0 0 2px #5b5e66,
+          0 0 0 3px #2a2b30;
+      }
+      .phone::before,
+      .phone::after {
+        content: '';
+        position: absolute;
+        width: 4px;
+        border-radius: 2px;
+        background: #4a4d55;
+      }
+      .phone::before {
+        left: -6px;
+        top: 150px;
+        height: 64px;
+        box-shadow: 0 -80px 0 -12px #4a4d55;
+      }
+      .phone::after {
+        right: -6px;
+        top: 200px;
+        height: 96px;
+      }
+      /* The screen is laid out in points of a 390 × 844 phone and scaled down. Its top behind
+         the status bar has the color of the app bar, like the installed app shows */
+      .screen {
+        --scale: 0.82;
+        position: relative;
+        overflow: hidden;
+        width: calc(390px * var(--scale));
+        height: calc(844px * var(--scale));
+        border-radius: 44px;
+        background: #306ca1;
+      }
+      .scaled {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 390px;
+        height: 844px;
+        transform: scale(var(--scale));
+        transform-origin: 0 0;
+      }
+      .status {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 47px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 6px 30px 0 46px;
+        box-sizing: border-box;
+        color: #fff;
+        font-size: 17px;
+        font-weight: 600;
+        letter-spacing: -0.2px;
+      }
+      .status .icons {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .island {
+        position: absolute;
+        left: 50%;
+        top: 11px;
+        width: 125px;
+        height: 37px;
+        border-radius: 19px;
+        background: #000;
+        transform: translateX(-50%);
+      }
+      .scaled iframe {
+        position: absolute;
+        left: 0;
+        top: 47px;
+        width: 390px;
+        height: 797px;
+        border: 0;
+      }
+      .home {
+        position: absolute;
+        left: 50%;
+        bottom: 8px;
+        width: 134px;
+        height: 5px;
+        border-radius: 3px;
+        background: rgba(0, 0, 0, 0.85);
+        transform: translateX(-50%);
+      }
+      @media (prefers-color-scheme: dark) {
+        .home {
+          background: rgba(255, 255, 255, 0.85);
+        }
+      }
+      /* A hand of about a child's size, coming from beyond the bottom right corner of the video */
+      .hand {
+        position: absolute;
+        z-index: 3;
+        left: 0;
+        top: 0;
+        width: 400px;
+        overflow: visible;
+        pointer-events: none;
+        /* The fingertip is the origin, so positions, turns and presses are about it */
+        transform-origin: 172px 9px;
+      }
+      .ring {
+        position: absolute;
+        z-index: 4;
+        left: 0;
+        top: 0;
+        width: 76px;
+        height: 76px;
+        margin: -38px 0 0 -38px;
+        pointer-events: none;
+        opacity: 0;
+      }
+      .ring circle {
+        fill: rgba(255, 255, 255, 0.18);
+        stroke: #fff;
+        stroke-width: 5;
+        stroke-linecap: round;
+        stroke-dasharray: 207;
+        stroke-dashoffset: 207;
+        transform: rotate(-90deg);
+        transform-origin: 38px 38px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="device">
+      <div class="phone">
+        <div class="screen">
+          <div class="scaled">
+            <iframe src="/"></iframe>
+            <div class="status">
+              <span>9:41</span>
+              <span class="icons">
+                <svg width="19" height="12" viewBox="0 0 19 12" fill="#fff">
+                  <rect x="0" y="8" width="3.5" height="4" rx="1" />
+                  <rect x="5" y="5.5" width="3.5" height="6.5" rx="1" />
+                  <rect x="10" y="3" width="3.5" height="9" rx="1" />
+                  <rect x="15" y="0" width="3.5" height="12" rx="1" />
+                </svg>
+                <svg width="17" height="12" viewBox="0 0 17 12" fill="#fff">
+                  <path
+                    d="M8.5 2.4c2.3 0 4.4.9 6 2.4l1.3-1.3A10.3 10.3 0 0 0 8.5.6 10.3 10.3 0 0 0 1.2 3.5l1.3 1.3a8.5 8.5 0 0 1 6-2.4Z"
+                  />
+                  <path
+                    d="M8.5 5.9c1.4 0 2.6.5 3.6 1.4l1.3-1.3a6.9 6.9 0 0 0-9.8 0l1.3 1.3c1-.9 2.2-1.4 3.6-1.4Z"
+                  />
+                  <path d="m8.5 12 2.4-2.4a3.4 3.4 0 0 0-4.8 0L8.5 12Z" />
+                </svg>
+                <svg width="27" height="13" viewBox="0 0 27 13" fill="none">
+                  <rect x=".5" y=".5" width="23" height="12" rx="3.5" stroke="#fff" opacity=".4" />
+                  <rect x="2" y="2" width="17" height="9" rx="2" fill="#fff" />
+                  <path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill="#fff" opacity=".4" />
+                </svg>
+              </span>
+            </div>
+            <div class="island"></div>
+            <div class="home"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- A flat hand pointing up with its index finger, the fingertip is at 220, 12 of the
+         drawing, and the forearm runs far enough down to leave the video -->
+    <svg class="hand" viewBox="0 0 512 512">
+      <defs>
+        <path
+          id="hand"
+          d="M190 42 A30 30 0 0 1 250 42 L250 184 A31 31 0 0 1 312 184 A31 31 0 0 1 374 184 A31 31 0 0 1 436 190 L436 372 C424 398 416 420 416 444 L416 1500 L230 1500 L230 438 C190 414 160 384 140 344 L82 238 A28 28 0 0 1 130 208 L190 312 Z"
+        />
+        <clipPath id="hand-clip"><use href="#hand" /></clipPath>
+      </defs>
+      <use href="#hand" fill="#fbc19c" />
+      <rect x="318" y="0" width="200" height="1500" fill="#e4ab88" clip-path="url(#hand-clip)" />
+      <use href="#hand" fill="none" stroke="#111" stroke-width="14" stroke-linejoin="round" />
+    </svg>
+    <svg class="ring" viewBox="0 0 76 76"><circle cx="38" cy="38" r="33" /></svg>
+
+    <script>
+      // Drives the hand over the app, the recording script calls these
+      // and dispatches the real clicks at the returned points
+      const screenBox = document.querySelector('.screen')
+      const frame = document.querySelector('iframe')
+      const hand = document.querySelector('.hand')
+      const ring = document.querySelector('.ring')
+      const SCALE = 0.82
+      const STATUS = 47
+      const TIP = { x: 172, y: 9 }
+
+      // The hand turns as if the arm came from a shoulder beyond the bottom right corner
+      function shoulder() {
+        return { x: innerWidth + 260, y: innerHeight + 420 }
+      }
+
+      let position = { x: innerWidth + 200, y: innerHeight + 200, press: 1 }
+      function place({ x, y, press }) {
+        const { x: sx, y: sy } = shoulder()
+        const angle = Math.atan2(-(sx - x), sy - y)
+        return `translate(${x - TIP.x}px, ${y - TIP.y}px) rotate(${angle}rad) scale(${press})`
+      }
+      hand.style.transform = place(position)
+
+      async function animate(target, duration, easing = 'cubic-bezier(.45,0,.2,1)') {
+        const next = { ...position, ...target }
+        // Several keyframes, so the hand turns gradually along its way
+        const frames = Array.from({ length: 9 }, (_, index) => {
+          const t = index / 8
+          return {
+            transform: place({
+              x: position.x + (next.x - position.x) * t,
+              y: position.y + (next.y - position.y) * t,
+              press: position.press + (next.press - position.press) * t
+            })
+          }
+        })
+        await hand.animate(frames, { duration, easing, fill: 'forwards' }).finished
+        position = next
+      }
+
+      const app = () => frame.contentDocument
+
+      // An element of the app by a selector, or by its own text, like a button label
+      function find(target) {
+        if (target.selector) return app().querySelector(target.selector)
+        const matches = [...app().querySelectorAll('#app *')].filter(
+          (element) =>
+            element.textContent.trim() === target.text &&
+            ![...element.children].some((child) => child.textContent.trim() === target.text)
+        )
+        return matches[0]
+      }
+
+      window.demo = {
+        // Center of an element of the app in the page coordinates
+        point(target) {
+          const rect = find(target).getBoundingClientRect()
+          const origin = screenBox.getBoundingClientRect()
+          return {
+            x: origin.left + (rect.left + rect.width / 2) * SCALE,
+            y: origin.top + (STATUS + rect.top + rect.height / 2) * SCALE
+          }
+        },
+        // Whether an element is on the screen, with its images loaded
+        shown(target) {
+          const element = find(target)
+          if (!element) return false
+          return [...element.querySelectorAll('img'), element]
+            .filter((node) => node.tagName === 'IMG')
+            .every((image) => image.complete && image.naturalWidth > 0)
+        },
+        // Where the hand waits: aside in the corner, or entirely out of the video
+        rest: (away) =>
+          away
+            ? { x: innerWidth + 200, y: innerHeight + 200 }
+            : { x: innerWidth - 46, y: innerHeight - 40 },
+        move: (x, y, duration) => animate({ x, y }, duration),
+        press: (duration = 90) => animate({ press: 0.94 }, duration, 'ease-out'),
+        release: (duration = 120) => animate({ press: 1 }, duration, 'ease-in'),
+        async hold(duration) {
+          ring.style.transform = `translate(${position.x}px, ${position.y}px)`
+          ring.style.opacity = 1
+          await ring
+            .querySelector('circle')
+            .animate([{ strokeDashoffset: 207 }, { strokeDashoffset: 0 }], {
+              duration,
+              fill: 'forwards'
+            }).finished
+        },
+        async unhold() {
+          await ring.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200 }).finished
+          ring.style.opacity = 0
+          ring
+            .querySelector('circle')
+            .getAnimations()
+            .forEach((animation) => animation.cancel())
+        },
+        ready: () => app()?.querySelector('#app.ready') != null
+      }
+    </script>
+  </body>
+</html>

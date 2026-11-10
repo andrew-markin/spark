@@ -14,7 +14,8 @@
     "lint:eslint": "eslint . --fix --cache",
     "format": "prettier --write src/",
     "dataset": "node -r dotenv/config dataset.js",
-    "test": "vitest run"
+    "test": "vitest run",
+    "demo": "node scripts/demo/record.js"
   },
   "dependencies": {
     "@quasar/extras": "^2.1.0",
