@@ -5,6 +5,10 @@ import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
+import iosSplashScreens from './plugins/ios-splash-screens.js'
+
+const background = '#306ca1'
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
@@ -22,15 +26,17 @@ export default defineConfig({
         clientsClaim: true,
         // Flags (public/flags) included: the service worker is installed only once all of
         // them are loaded, so the courses work offline right after the first visit
-        globPatterns: ['**/*.{js,css,html,png,svg,ttf,woff,woff2}']
+        globPatterns: ['**/*.{js,css,html,png,svg,ttf,woff,woff2}'],
+        // iOS reads launch screens when the app is added to the home screen, no need to cache them
+        globIgnores: ['splash/**']
       },
       manifest: {
         name: 'Spark',
         short_name: 'Spark',
         description:
           'Lightweight brain training app designed to boost your memory and cognitive skills',
-        theme_color: '#306ca1',
-        background_color: '#306ca1',
+        theme_color: background,
+        background_color: background,
         orientation: 'portrait-primary',
         display: 'standalone',
         scope: '/',
@@ -63,6 +69,7 @@ export default defineConfig({
         ]
       }
     }),
+    iosSplashScreens({ color: background }),
     // @quasar/plugin-vite options list:
     // https://github.com/quasarframework/quasar/blob/dev/vite-plugin/index.d.ts
     quasar({
