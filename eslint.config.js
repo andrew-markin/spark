@@ -1,39 +1,62 @@
-import { fixupPluginRules } from '@eslint/compat'
 import js from '@eslint/js'
-import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
-import pluginImport from 'eslint-plugin-import'
+import { defineConfig, globalIgnores } from 'eslint/config'
+import skipFormatting from 'eslint-config-prettier/flat'
+import { importX } from 'eslint-plugin-import-x'
+import pluginOxlint from 'eslint-plugin-oxlint'
 import pluginSimpleImportSort from 'eslint-plugin-simple-import-sort'
 import pluginVue from 'eslint-plugin-vue'
 import globals from 'globals'
 
-export default [
-  { name: 'app/files-to-lint', files: ['**/*.{js,mjs,jsx,vue}'] },
+export default defineConfig([
   {
-    name: 'app/files-to-ignore',
-    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**']
+    name: 'app/files-to-lint',
+    files: ['**/*.{vue,js,mjs,jsx}']
+  },
+  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
+  {
+    languageOptions: {
+      globals: {
+        ...globals.browser
+      }
+    }
   },
   js.configs.recommended,
   ...pluginVue.configs['flat/recommended'],
+  ...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
   skipFormatting,
+  importX.flatConfigs.recommended,
   {
-    languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-      globals: {
-        ...globals.browser,
-        ...globals.node
+    settings: {
+      'import-x/resolver': {
+        typescript: true,
+        node: true
       }
     },
     plugins: {
-      import: fixupPluginRules(pluginImport),
       'simple-import-sort': pluginSimpleImportSort
     },
     rules: {
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
-      'import/first': 'error',
-      'import/newline-after-import': 'error',
-      'import/no-duplicates': 'error'
+      'import-x/first': 'error',
+      'import-x/newline-after-import': 'error',
+      'import-x/no-duplicates': 'error',
+      'import-x/no-dynamic-require': 'error',
+      'import-x/no-nodejs-modules': 'error',
+      'vue/html-self-closing': 'off'
+    }
+  },
+  {
+    // Run by Node at build time or by hand, not shipped with the app
+    name: 'app/node-scripts',
+    files: ['*.js'],
+    languageOptions: {
+      globals: {
+        ...globals.node
+      }
+    },
+    rules: {
+      'import-x/no-nodejs-modules': 'off'
     }
   }
-]
+])

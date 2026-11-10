@@ -26,7 +26,7 @@ jobs:
           cache: npm
 
       - run: npm ci
-      - run: npx eslint .
+      - run: npx oxlint . && npx eslint .
       - run: npx prettier --check src/
       - run: npm test
       - run: npm run build
