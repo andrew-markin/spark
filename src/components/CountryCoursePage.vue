@@ -16,7 +16,7 @@ import { defineComponent } from 'vue'
 import CoursePage from '@/components/CoursePage.vue'
 import countries from '@/dataset.js'
 import { useMainStore } from '@/stores/main'
-import { selectRandomly } from '@/utils/helpers'
+import { pickOption } from '@/trainer'
 
 export default defineComponent({
   components: { CoursePage },
@@ -49,7 +49,7 @@ export default defineComponent({
     ...mapActions(useMainStore, ['saveScore', 'saveContext', 'restoreContext']),
     reset() {
       this.revealed = false
-      this.option = selectRandomly(this.options.map((option) => [option, option.level * 100]))
+      this.option = pickOption(this.options, this.iteration)
     },
     grade(success) {
       if (success) this.option.confirms++
@@ -71,11 +71,13 @@ export default defineComponent({
       this.saveScore(this.course, score)
     },
     drop() {
+      this.iteration = 0
       for (const option of this.options) {
         option.asked = undefined
         option.confirms = 0
       }
       this.save()
+      this.reset()
     }
   }
 })
