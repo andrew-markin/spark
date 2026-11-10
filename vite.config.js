@@ -15,6 +15,10 @@ export default defineConfig({
       registerType: 'autoUpdate',
       injectRegister: 'inline',
       workbox: {
+        // The plugin enables these for autoUpdate only with its own registration
+        // script, not with the inline one, so new versions would wait for all tabs to close
+        skipWaiting: true,
+        clientsClaim: true,
         globPatterns: ['**/*.{js,css,html,png,svg,ttf,woff,woff2}']
       },
       manifest: {
