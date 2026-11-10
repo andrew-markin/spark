@@ -22,15 +22,8 @@
   </scrollable-page>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
-
+<script setup>
 import MenuButton from '@/components/MenuButton.vue'
 import ScrollablePage from '@/components/ScrollablePage.vue'
 import { github, linkedin, version } from '@/consts'
-
-export default defineComponent({
-  components: { MenuButton, ScrollablePage },
-  data: () => ({ version, github, linkedin })
-})
 </script>

@@ -13,10 +13,6 @@
   </country-course-page>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
-
+<script setup>
 import CountryCoursePage from '@/components/CountryCoursePage.vue'
-
-export default defineComponent({ components: { CountryCoursePage } })
 </script>

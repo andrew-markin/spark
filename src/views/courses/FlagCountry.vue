@@ -11,11 +11,7 @@
   </country-course-page>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
-
+<script setup>
 import CountryCoursePage from '@/components/CountryCoursePage.vue'
 import CountryFlagImage from '@/components/CountryFlagImage.vue'
-
-export default defineComponent({ components: { CountryCoursePage, CountryFlagImage } })
 </script>

@@ -13,28 +13,23 @@
   </scrollable-page>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
+<script setup>
+import { useI18n } from 'petite-vue-i18n'
+import { computed } from 'vue'
 
 import CourseButton from '@/components/CourseButton.vue'
 import MenuButton from '@/components/MenuButton.vue'
 import ScrollablePage from '@/components/ScrollablePage.vue'
 import { version } from '@/consts'
 
-export default defineComponent({
-  components: { CourseButton, MenuButton, ScrollablePage },
-  data: () => ({ version }),
-  computed: {
-    courses() {
-      return [
-        { title: this.$t('COURSE_COUNTRY_CAPITAL'), name: 'country-capital' },
-        { title: this.$t('COURSE_CAPITAL_COUNTRY'), name: 'capital-country' },
-        { title: this.$t('COURSE_FLAG_COUNTRY'), name: 'flag-country' },
-        { title: this.$t('COURSE_COUNTRY_FLAG'), name: 'country-flag' }
-      ]
-    }
-  }
-})
+const { t } = useI18n()
+
+const courses = computed(() => [
+  { title: t('COURSE_COUNTRY_CAPITAL'), name: 'country-capital' },
+  { title: t('COURSE_CAPITAL_COUNTRY'), name: 'capital-country' },
+  { title: t('COURSE_FLAG_COUNTRY'), name: 'flag-country' },
+  { title: t('COURSE_COUNTRY_FLAG'), name: 'country-flag' }
+])
 </script>
 
 <style scoped>
