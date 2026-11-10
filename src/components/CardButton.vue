@@ -10,9 +10,11 @@
     @keydown.enter.space.prevent.stop="$event.currentTarget.click()"
   >
     <span class="q-focus-helper"></span>
-    <q-card-section class="q-pa-sm">
+    <!-- The icon is centered on the whole line, in a line of text it would be centered on
+         the lowercase letters, lower than the text looks -->
+    <q-card-section class="q-pa-sm row no-wrap items-center">
       <q-icon v-if="icon" left :name="icon" size="2rem" />
-      <slot></slot>
+      <div class="col"><slot></slot></div>
     </q-card-section>
   </q-card>
 </template>
