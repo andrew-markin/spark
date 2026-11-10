@@ -27,7 +27,6 @@ dates here and commit.
 | Check                                                                                                                                        | Last done  | Next                                      |
 | -------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ----------------------------------------- |
 | New iPhone and iPad screen sizes are in `SCREENS` of `plugins/ios-splash-screens.js`, otherwise the app launches with a white screen on them | 2026-11-11 | 2027-09-20, after Apple's September event |
-| The `gh-pages` branch, left from the deployment before GitHub Actions, is deleted once the new one has worked for a while                    | —          | 2026-11-25                                |
 | The dataset is refreshed with `npm run dataset`, capitals and populations change now and then                                                | 2026-11-10 | 2027-11-10                                |
 
 ## Decisions to keep
