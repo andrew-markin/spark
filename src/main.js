@@ -29,14 +29,8 @@ applyLocale()
 
 app.mount('#app')
 
-setTimeout(() => {
-  if (navigator.userAgent.indexOf('iPhone') === -1) return
-  const viewport = document.querySelector('[name=viewport]')
-  if (viewport) {
-    viewport?.setAttribute('content', viewport.getAttribute('content') + ', maximum-scale=1')
-  }
-  const preventDefault = (event) => event.preventDefault()
-  document.addEventListener('gesturestart', preventDefault)
-  document.addEventListener('gesturechange', preventDefault)
-  document.addEventListener('gestureend', preventDefault)
-}, 200)
+// Safari ignores user-scalable=no in the viewport (see index.html), so block pinch zoom directly
+const preventDefault = (event) => event.preventDefault()
+document.addEventListener('gesturestart', preventDefault)
+document.addEventListener('gesturechange', preventDefault)
+document.addEventListener('gestureend', preventDefault)

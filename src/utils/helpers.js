@@ -13,6 +13,8 @@ export const selectRandomly = (options) => {
     map.push({ stake, value })
   }
 
+  if (!map.length) return undefined
+
   const nonce = getRandomArbitrary(0, stake)
 
   let left = 0

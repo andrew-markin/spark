@@ -7,16 +7,12 @@
 </template>
 
 <script>
-import { useQuasar } from 'quasar'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
   computed: {
-    quasar() {
-      return useQuasar()
-    },
     mobileScreen() {
-      return this.quasar.screen.width < 800
+      return this.$q.screen.width < 800
     }
   }
 })
