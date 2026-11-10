@@ -1,7 +1,7 @@
 // Derived from GeoNames data (https://www.geonames.org/)
 // License: Creative Commons Attribution 4.0 (CC BY 4.0)
 // Contains curated corrections for data accuracy
-// Last updated: 2025-09-20
+// Last updated: 2026-11-10
 
 export default [
   {
@@ -1379,7 +1379,7 @@ export default [
       en: 'Yerevan',
       ru: 'Ереван'
     },
-    population: 3084400,
+    population: 3090500,
     level: 5
   },
   {
@@ -2683,6 +2683,19 @@ export default [
     level: 9
   },
   {
+    code: 'ua',
+    name: {
+      en: 'Ukraine',
+      ru: 'Украина'
+    },
+    capital: {
+      en: 'Kyiv',
+      ru: 'Киев'
+    },
+    population: 40000000,
+    level: 9
+  },
+  {
     code: 'sd',
     name: {
       en: 'Sudan',
@@ -2732,19 +2745,6 @@ export default [
       ru: 'Буэнос-Айрес'
     },
     population: 44494502,
-    level: 9
-  },
-  {
-    code: 'ua',
-    name: {
-      en: 'Ukraine',
-      ru: 'Украина'
-    },
-    capital: {
-      en: 'Kyiv',
-      ru: 'Киев'
-    },
-    population: 44622516,
     level: 9
   },
   {

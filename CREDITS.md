@@ -48,7 +48,7 @@ The original GeoNames data has been enhanced with:
 The data update script is typically run:
 
 - Manually when needed
-- **Last Updated:** <!-- DATASET_UPDATE_DATE -->2025-09-20<!-- /DATASET_UPDATE_DATE -->
+- **Last Updated:** <!-- DATASET_UPDATE_DATE -->2026-11-10<!-- /DATASET_UPDATE_DATE -->
 
 ## Third-Party Libraries
 
