@@ -16,6 +16,7 @@ Spark is a lightweight brain training app designed to boost your memory and cogn
 - **🎯 Multi-Topic Support:** Comes pre-loaded with geography facts (capitals, flags). Easy to extend to new topics.
 - **⚡ Lightweight & Fast:** Built with Vue 3 and Vite for an instant, smooth experience.
 - **📶 Offline Capable:** Continue training even without an internet connection.
+- **⌨️ Keyboard Friendly:** Reveal the answer with Space or Enter, grade it with ← (didn't know) or → (knew).
 
 ## 🚀 Quick Start
 
