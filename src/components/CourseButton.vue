@@ -8,25 +8,15 @@
   </menu-button>
 </template>
 
-<script>
-import { mapState } from 'pinia'
-import { defineComponent } from 'vue'
+<script setup>
+import { computed } from 'vue'
 
 import { useMainStore } from '@/stores/main'
 
 import MenuButton from './MenuButton.vue'
 
-export default defineComponent({
-  components: { MenuButton },
-  props: { course: { type: Object, default: undefined } },
-  computed: {
-    ...mapState(useMainStore, ['getScore']),
-    score() {
-      return this.getScore(this.course.name)
-    },
-    scoreLabel() {
-      return Number(this.score || 0).toFixed(2)
-    }
-  }
-})
+const props = defineProps({ course: { type: Object, default: undefined } })
+
+const store = useMainStore()
+const scoreLabel = computed(() => Number(store.getScore(props.course.name) || 0).toFixed(2))
 </script>

@@ -11,11 +11,7 @@
   </app-page>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
-
+<script setup>
 import AppPage from '@/components/AppPage.vue'
 import ScrollArea from '@/components/ScrollArea.vue'
-
-export default defineComponent({ components: { AppPage, ScrollArea } })
 </script>

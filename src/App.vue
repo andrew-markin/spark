@@ -6,16 +6,12 @@
   </div>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
+<script setup>
+import { useQuasar } from 'quasar'
+import { computed } from 'vue'
 
-export default defineComponent({
-  computed: {
-    mobileScreen() {
-      return this.$q.screen.width < 800
-    }
-  }
-})
+const $q = useQuasar()
+const mobileScreen = computed(() => $q.screen.width < 800)
 </script>
 
 <style lang="scss">

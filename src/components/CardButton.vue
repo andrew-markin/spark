@@ -13,21 +13,20 @@
   </q-card>
 </template>
 
-<script>
+<script setup>
 import { openURL } from 'quasar'
-import { defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
 
-export default defineComponent({
-  props: {
-    to: { type: Object, default: undefined },
-    href: { type: String, default: undefined },
-    icon: { type: String, default: undefined }
-  },
-  methods: {
-    route() {
-      if (this.to) return this.$router.replace(this.to)
-      if (this.href) return openURL(this.href)
-    }
-  }
+const props = defineProps({
+  to: { type: Object, default: undefined },
+  href: { type: String, default: undefined },
+  icon: { type: String, default: undefined }
 })
+
+const router = useRouter()
+
+function route() {
+  if (props.to) return router.replace(props.to)
+  if (props.href) return openURL(props.href)
+}
 </script>

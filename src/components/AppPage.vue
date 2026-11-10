@@ -17,8 +17,6 @@
   <slot></slot>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
-
-export default defineComponent({ props: { title: { type: String, default: undefined } } })
+<script setup>
+defineProps({ title: { type: String, default: undefined } })
 </script>

@@ -4,17 +4,12 @@
   <img v-if="code" :src="src" width="640" height="480" alt="" class="flag" draggable="false" />
 </template>
 
-<script>
-import { defineComponent } from 'vue'
+<script setup>
+import { computed } from 'vue'
 
-export default defineComponent({
-  props: { code: { type: String, default: undefined } },
-  computed: {
-    src() {
-      return `${import.meta.env.BASE_URL}flags/${this.code.toLowerCase()}.svg`
-    }
-  }
-})
+const props = defineProps({ code: { type: String, default: undefined } })
+
+const src = computed(() => `${import.meta.env.BASE_URL}flags/${props.code.toLowerCase()}.svg`)
 </script>
 
 <style scoped lang="scss">
