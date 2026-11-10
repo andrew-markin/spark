@@ -1,7 +1,13 @@
 <template>
   <app-page :title="title">
     <template #corner>
-      <div class="text-h6 non-selectable cursor-pointer" @click="drop()">{{ scoreLabel }}%</div>
+      <div
+        v-touch-hold:1000.mouse="drop"
+        class="text-h6 non-selectable cursor-pointer"
+        :title="$t('HOLD_TO_RESET')"
+      >
+        {{ scoreLabel }}%
+      </div>
     </template>
     <q-card-section class="col relative-position">
       <div class="absolute-full flex flex-center q-pa-sm">
@@ -11,10 +17,10 @@
     <q-card-section class="text-h6 row no-wrap q-pa-none text-center">
       <template v-if="revealed">
         <card-button square class="col-6 bg-negative text-uppercase q-pa-md" @click="grade(false)">
-          {{ $t('ANSWER_GRADE_SUCCESS') }}
+          {{ $t('ANSWER_DIDNT_KNOW') }}
         </card-button>
         <card-button square class="col-6 bg-positive text-uppercase q-pa-md" @click="grade(true)">
-          {{ $t('ANSWER_GRADE_FAIL') }}
+          {{ $t('ANSWER_KNEW') }}
         </card-button>
       </template>
       <card-button v-else square class="col-12 bg-primary text-uppercase q-pa-md" @click="reveal()">
@@ -64,6 +70,7 @@ export default defineComponent({
     grade(success) {
       this.$emit('grade', success)
     },
+    // All the progress of the course is lost, so on a long press only, not on a stray tap
     drop() {
       this.$emit('drop')
     }
