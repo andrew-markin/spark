@@ -12,25 +12,21 @@
 </template>
 
 <script>
-import { mapWritableState } from 'pinia'
 import { defineComponent } from 'vue'
 
 import ScrollablePage from '@/components/ScrollablePage.vue'
-import { preferLocale } from '@/i18n'
-import { useMainStore } from '@/stores/main'
+import { setLocale } from '@/i18n'
 import { setPreferredDarkMode } from '@/utils/theme'
 
 export default defineComponent({
   components: { ScrollablePage },
   computed: {
-    ...mapWritableState(useMainStore, ['theme']),
     locale: {
       get() {
         return this.$i18n.locale
       },
       set(value) {
-        preferLocale(value)
-        this.$i18n.locale = value
+        setLocale(value)
       }
     },
     locales() {

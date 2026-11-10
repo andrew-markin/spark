@@ -8,7 +8,7 @@ import { Quasar } from 'quasar'
 import { createApp } from 'vue'
 
 import App from './App.vue'
-import i18n from './i18n'
+import i18n, { applyLocale } from './i18n'
 import router from './router'
 import { getPreferredDarkMode } from './utils/theme'
 
@@ -24,6 +24,8 @@ app.use(Quasar, {
     dark: getPreferredDarkMode()
   }
 })
+
+applyLocale()
 
 app.mount('#app')
 
