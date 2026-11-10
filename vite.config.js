@@ -6,6 +6,7 @@ import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
 import iosSplashScreens from './plugins/ios-splash-screens.js'
+import purgeCss from './plugins/purge-css.js'
 
 const background = '#306ca1'
 
@@ -28,7 +29,10 @@ export default defineConfig({
         // them are loaded, so the courses work offline right after the first visit
         globPatterns: ['**/*.{js,css,html,png,svg,ttf,woff,woff2}'],
         // iOS reads launch screens when the app is added to the home screen, no need to cache them
-        globIgnores: ['splash/**']
+        globIgnores: ['splash/**'],
+        // Files with hashed names are cached by their names alone, except for stylesheets,
+        // which keep their names when purged (see plugins/purge-css.js), checked by content
+        dontCacheBustURLsMatching: /-[\w-]{8}\.(?!css$)\w+$/
       },
       manifest: {
         name: 'Spark',
@@ -70,6 +74,7 @@ export default defineConfig({
       }
     }),
     iosSplashScreens({ color: background }),
+    purgeCss(),
     // @quasar/plugin-vite options list:
     // https://github.com/quasarframework/quasar/blob/dev/vite-plugin/index.d.ts
     quasar({
