@@ -361,7 +361,9 @@ function encode(screencast, file) {
     'ffmpeg',
     [
       ['-y', '-loglevel', 'error', '-i', screencast],
-      ['-vf', `fps=${options.fps},scale=${width}:${height}:flags=lanczos,format=yuva420p`],
+      // RGBA goes to libwebp as is: converted to yuva420p by ffmpeg, the transparent background
+      // gets an alpha of 1, seen as a faint box around the phone on dark pages
+      ['-vf', `fps=${options.fps},scale=${width}:${height}:flags=lanczos,format=bgra`],
       ['-c:v', 'libwebp_anim', '-loop', '0', '-compression_level', '6'],
       options.lossless ? ['-lossless', '1'] : ['-quality', options.quality],
       file
