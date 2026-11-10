@@ -1,5 +1,4 @@
 import '@quasar/extras/roboto-font/roboto-font.css'
-import '@quasar/extras/fontawesome-v6/fontawesome-v6.css'
 import 'quasar/src/css/index.sass'
 import '@/style/main.css'
 
