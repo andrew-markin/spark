@@ -15,11 +15,10 @@ const mobileScreen = computed(() => $q.screen.width < 800)
 </script>
 
 <style lang="scss">
-body {
-  background-color: #e0e0e0;
-}
+// The page background is set on html in index.html, so it is there before the app loads
+body,
 body.body--dark {
-  background: #18191d;
+  background: transparent;
 }
 </style>
 

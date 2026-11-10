@@ -2,13 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Spark</title>
-    <meta
-      name="description"
-      content="Lightweight brain training app designed to boost your memory and cognitive skills"
-    />
     <link rel="icon" sizes="any" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/favicon.png" sizes="180x180" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
@@ -17,6 +12,66 @@
     <!-- iOS shows launch screens (see plugins/ios-splash-screens.js) only for web apps -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
+    <title>Spark</title>
+    <meta
+      name="description"
+      content="Lightweight brain training app designed to boost your memory and cognitive skills"
+    />
+    <!-- Link previews in messengers and social networks, crawlers need absolute URLs -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Spark" />
+    <meta property="og:title" content="Spark" />
+    <meta
+      property="og:description"
+      content="Lightweight brain training app designed to boost your memory and cognitive skills"
+    />
+    <meta property="og:url" content="https://spark.mayfleet.com/" />
+    <meta property="og:image" content="https://spark.mayfleet.com/icon-512.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:image:alt" content="Spark" />
+    <meta name="twitter:card" content="summary" />
+    <script>
+      // Paint the page in the theme chosen in the settings right away, before the app loads
+      // (see utils/theme.js), the system one applies otherwise. Kept in sync by main.js.
+      try {
+        const dark = JSON.parse(localStorage.getItem('dark'))
+        if (dark !== null) document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+      } catch {
+        // No storage or a damaged value, the system theme it is
+      }
+    </script>
+    <style>
+      /* The color scheme follows the theme too, it sets the default text and control colors */
+      html {
+        color-scheme: light;
+        background-color: #e0e0e0;
+      }
+      html[data-theme='dark'] {
+        color-scheme: dark;
+        background-color: #18191d;
+      }
+      @media (prefers-color-scheme: dark) {
+        html:not([data-theme='light']) {
+          color-scheme: dark;
+          background-color: #18191d;
+        }
+      }
+      /* Keep the app hidden until its fonts are loaded, see main.js, then fade it in */
+      #app {
+        transition: opacity 0.4s ease-out;
+      }
+      #app:not(.ready) {
+        opacity: 0;
+        pointer-events: none;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #app {
+          transition: none;
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="app"></div>
