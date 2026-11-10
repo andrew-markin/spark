@@ -54,3 +54,7 @@ dates here and commit.
   ```bash
   google-chrome --headless=new --default-background-color=00000000 --window-size=512,512 --screenshot=icon-512.png page.html
   ```
+
+- The version has two numbers, like 1.0, raised as 1.1, 1.2 and so on, or 2.0 for a big change.
+  `package.json` keeps a third one at zero for npm (`npm version 1.1.0 --no-git-tag-version`),
+  and `vite.config.js` passes the first two to the app.

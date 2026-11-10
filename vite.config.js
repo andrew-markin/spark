@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import { fileURLToPath, URL } from 'node:url'
 
 import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
@@ -9,6 +10,11 @@ import iosSplashScreens from './plugins/ios-splash-screens.js'
 import purgeCss from './plugins/purge-css.js'
 
 const background = '#306ca1'
+
+// The app shows two numbers of its version, like 1.0, the third one is kept at zero only
+// because npm needs it in package.json
+const { version } = JSON.parse(readFileSync(new URL('./package.json', import.meta.url)))
+const appVersion = version.split('.').slice(0, 2).join('.')
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -87,6 +93,6 @@ export default defineConfig({
     }
   },
   define: {
-    'import.meta.env.APP_VERSION': JSON.stringify(process.env.npm_package_version)
+    'import.meta.env.APP_VERSION': JSON.stringify(appVersion)
   }
 })
