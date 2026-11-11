@@ -73,6 +73,26 @@
         height: env(safe-area-inset-top, 0px);
         background: #306ca1;
       }
+      /* Installed on iOS, with the app drawn under the status bar, WebKit still takes the status
+         bar off the page height, so the page ends that much short of the bottom of the screen and
+         the background shows below it. Reaching there the app would either make the page scroll
+         or be cut off, so on phones, where the app fills the screen, the background takes the
+         color of the app instead. Only iOS supports -webkit-touch-callout. */
+      @supports (-webkit-touch-callout: none) {
+        @media (display-mode: standalone) and (max-width: 799px) {
+          html {
+            background-color: #fff;
+          }
+          html[data-theme='dark'] {
+            background-color: #282e33;
+          }
+        }
+        @media (display-mode: standalone) and (max-width: 799px) and (prefers-color-scheme: dark) {
+          html:not([data-theme='light']) {
+            background-color: #282e33;
+          }
+        }
+      }
       /* Keep the app hidden until its fonts are loaded, see main.js, then fade it in */
       #app {
         transition: opacity 0.4s ease-out;

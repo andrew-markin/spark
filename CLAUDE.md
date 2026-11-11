@@ -74,9 +74,11 @@ dates here and commit.
   the bottom of the image, the heading line below it.
 - The installed app on iOS draws itself under a transparent status bar (`black-translucent` and
   `viewport-fit=cover` in `index.html`), with a strip in the app bar color behind it, as iOS
-  otherwise paints the status bar with the page background. WebKit then still takes the status
-  bar off the page height, so in the installed app on iOS only (`-webkit-touch-callout` with
-  `display-mode: standalone` in `App.vue`) the app starts below the status bar and is `100dvh`
-  high, reaching the bottom of the screen; the app is fixed, so reaching beyond the page doesn't
-  let the page scroll. Elsewhere the inset is zero and nothing changes. Check
-  such changes on a real iPhone, reinstalling the app on the home screen.
+  otherwise paints the status bar with the page background. The app starts below the status bar
+  (`env(safe-area-inset-top)` in `App.vue`). WebKit still takes the status bar off the page
+  height, so the page ends that much short of the bottom of the screen. Don't stretch the app
+  there: positioned absolutely it makes the page scroll, the app bar sliding away, and fixed it
+  is cut off. Instead, in the installed app on iOS phones only (`-webkit-touch-callout` with
+  `display-mode: standalone`), the page background in `index.html` takes the color of the app,
+  which fills the screen there. Elsewhere the inset is zero and nothing changes. Check such
+  changes on a real iPhone, reinstalling the app on the home screen.
