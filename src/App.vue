@@ -24,7 +24,8 @@ body.body--dark {
 
 <style scoped lang="scss">
 .container {
-  position: absolute;
+  /* Fixed, as it may reach beyond the page (see below), which must not make the page scroll */
+  position: fixed;
   /* Below the status bar of the installed app on iOS, see index.html */
   top: env(safe-area-inset-top, 0px);
   bottom: 0;

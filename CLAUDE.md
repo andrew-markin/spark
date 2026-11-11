@@ -77,5 +77,6 @@ dates here and commit.
   otherwise paints the status bar with the page background. WebKit then still takes the status
   bar off the page height, so in the installed app on iOS only (`-webkit-touch-callout` with
   `display-mode: standalone` in `App.vue`) the app starts below the status bar and is `100dvh`
-  high, reaching the bottom of the screen. Elsewhere the inset is zero and nothing changes. Check
+  high, reaching the bottom of the screen; the app is fixed, so reaching beyond the page doesn't
+  let the page scroll. Elsewhere the inset is zero and nothing changes. Check
   such changes on a real iPhone, reinstalling the app on the home screen.
