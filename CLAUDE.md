@@ -72,3 +72,10 @@ dates here and commit.
   it (no `#` or `##` heading may sit beside the animation, GitHub draws its line over the image).
   Changing the intro or the width, measure it on the GitHub page again: the list has to end above
   the bottom of the image, the heading line below it.
+- The installed app on iOS draws itself under a transparent status bar (`black-translucent` and
+  `viewport-fit=cover` in `index.html`), with a strip in the app bar color behind it, as iOS
+  otherwise paints the status bar with the page background. WebKit then still takes the status
+  bar off the page height, so in the installed app on iOS only (`-webkit-touch-callout` with
+  `display-mode: standalone` in `App.vue`) the app starts below the status bar and is `100dvh`
+  high, reaching the bottom of the screen. Elsewhere the inset is zero and nothing changes. Check
+  such changes on a real iPhone, reinstalling the app on the home screen.
