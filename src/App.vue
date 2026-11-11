@@ -33,6 +33,15 @@ body.body--dark {
   width: 100%;
 }
 
+/* With the app drawn under the status bar, iOS still ends the page that much short of the
+   bottom of the screen, while the visible height reaches it */
+@supports (height: 100dvh) {
+  .container {
+    bottom: auto;
+    height: calc(100dvh - env(safe-area-inset-top, 0px));
+  }
+}
+
 @media (min-width: 550px) {
   .container {
     width: 500px;
