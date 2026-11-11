@@ -33,12 +33,16 @@ body.body--dark {
   width: 100%;
 }
 
-/* With the app drawn under the status bar, iOS still ends the page that much short of the
-   bottom of the screen, while the visible height reaches it */
-@supports (height: 100dvh) {
-  .container {
-    bottom: auto;
-    height: calc(100dvh - env(safe-area-inset-top, 0px));
+/* Installed on iOS, with the app drawn under the status bar (see index.html), WebKit still
+   takes the status bar off the height of the page, which then ends that much short of the
+   bottom of the screen. So there the app is as high as the page, starting below the status
+   bar. Only iOS supports -webkit-touch-callout, other browsers count the height right. */
+@supports (-webkit-touch-callout: none) {
+  @media (display-mode: standalone) {
+    .container {
+      bottom: auto;
+      height: 100dvh;
+    }
   }
 }
 
