@@ -6,11 +6,14 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
     />
     <meta name="theme-color" content="#306ca1" />
     <!-- iOS shows launch screens (see plugins/ios-splash-screens.js) only for web apps -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- The installed app on iOS draws itself under a transparent status bar with white text,
+         which otherwise takes the page background, see the styles below -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="mobile-web-app-capable" content="yes" />
     <title>Spark</title>
     <meta
@@ -57,6 +60,18 @@
           color-scheme: dark;
           background-color: #18191d;
         }
+      }
+      /* Behind the status bar of the installed app on iOS, the color of the app bar; the area is
+         empty elsewhere, and App.vue keeps the app below it */
+      body::before {
+        content: '';
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: env(safe-area-inset-top, 0px);
+        background: #306ca1;
       }
       /* Keep the app hidden until its fonts are loaded, see main.js, then fade it in */
       #app {
