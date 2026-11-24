@@ -19,10 +19,10 @@
   },
   "dependencies": {
     "@quasar/extras": "^2.1.0",
-    "petite-vue-i18n": "^11.4.20",
+    "petite-vue-i18n": "^11.4.23",
     "pinia": "^4.1.0",
-    "quasar": "^2.35.4",
-    "vue": "^3.5.21",
+    "quasar": "^2.35.6",
+    "vue": "^3.5.46",
     "vue-router": "^5.5.1"
   },
   "devDependencies": {
@@ -34,19 +34,19 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.5",
     "eslint-plugin-import-x": "^4.18.1",
-    "eslint-plugin-oxlint": "~1.93.0",
+    "eslint-plugin-oxlint": "~1.94.0",
     "eslint-plugin-simple-import-sort": "^14.0.0",
     "eslint-plugin-vue": "~10.12.1",
     "flag-icons": "^7.6.0",
     "globals": "^17.14.0",
-    "npm-run-all2": "^9.0.4",
-    "oxlint": "~1.93.0",
+    "npm-run-all2": "^9.1.0",
+    "oxlint": "~1.94.0",
     "prettier": "^3.10.1",
     "purgecss": "^9.1.0",
     "sass-embedded": "^1.108.2",
     "vite": "^8.3.8",
     "vite-plugin-pwa": "^2.0.0",
-    "vitest": "^5.1.0"
+    "vitest": "^5.1.1"
   },
   "engines": {
     "node": ">=22.12.0"
