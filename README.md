@@ -96,6 +96,11 @@ screens with [`plugins/ios-splash-screens.js`](plugins/ios-splash-screens.js), a
 app manifest for them. When Apple releases a device with a new screen size, add it to the list
 there, otherwise the app launches with a white screen on it.
 
+The purge may also drop a class Quasar puts together at runtime, breaking the layout quietly.
+`npm run check-styles` with [`scripts/check-styles.js`](scripts/check-styles.js) compares the computed
+styles of every screen, between the dev server and the build, in headless Google Chrome, on a phone
+and on a desktop, in both themes. Run it after an update of Quasar.
+
 ## Deployment
 
 Every push to `main` is linted, tested, built and published to GitHub Pages via

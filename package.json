@@ -15,7 +15,8 @@
     "format": "prettier --write src/",
     "dataset": "node -r dotenv/config dataset.js",
     "test": "vitest run",
-    "demo": "node scripts/demo/record.js"
+    "demo": "node scripts/demo/record.js",
+    "check-styles": "node scripts/check-styles.js"
   },
   "dependencies": {
     "@quasar/extras": "^2.1.0",
