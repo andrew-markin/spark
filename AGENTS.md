@@ -1,4 +1,4 @@
-# Notes for Claude
+# Notes for coding agents
 
 Spark is a brain trainer for country capitals and flags, a Vue 3 + Quasar PWA built with Vite and
 deployed to GitHub Pages at https://spark.mayfleet.com. See README.md for how it works. Mult
