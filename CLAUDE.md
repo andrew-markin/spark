@@ -14,7 +14,12 @@ deployed to GitHub Pages at https://spark.mayfleet.com. See README.md for how it
 - Push only when asked. After a push watch the Deploy workflow and check the site; an installed
   PWA picks a new version up on the second launch.
 - Dependabot opens weekly pull requests with updates; the Deploy workflow checks them without
-  deploying.
+  deploying. To check one, build its branch (in a worktree with its own `npm ci`) and `main`, split
+  each `dist/assets/index-*.css` into rules with `sed 's/}/}\n/g'` and diff them: the purge keeps a
+  selector once its name appears anywhere in the built scripts, so an update of any package may
+  change what it keeps. With no rule dropped the purge breaks nothing, and the rules added are to
+  be looked at in the templates, like those for `pre` and `sup` that petite-vue-i18n brought with a
+  list of tags. Run `npm run check-styles` only when a rule is dropped or Quasar changes its CSS.
 - `npm run dataset` refreshes the countries from GeoNames (the username is in `.env`) and the
   flags from the `flag-icons` package into `public/flags`. Look at the diff before committing.
 
@@ -44,9 +49,9 @@ dates here and commit.
   would keep stale ones. Classes Quasar puts together at runtime, like
   `q-radio__inner--${state}` or `${vertical ? 'items' : 'justify'}-${align}`, are kept by the
   plugin automatically. A missed one breaks the layout quietly (the logo bolt moved off center
-  once, `justify-center` was dropped), so after Quasar updates compare the computed styles of
-  every element on every screen, in both themes, between `npm run dev` and `npm run preview`,
-  not only by eye.
+  once, `justify-center` was dropped), so once a rule is dropped or Quasar changes its CSS,
+  compare the computed styles of every element on every screen, in both themes, with
+  `npm run check-styles`, not by eye.
 - The page background is set on `html` in `index.html`, from the theme saved in the settings
   before the app loads and from Quasar afterwards (`main.js`). `color-scheme` follows the theme as
   well: a `light dark` meta tag makes the default text white on the light theme of a dark system.
